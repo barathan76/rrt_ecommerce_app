@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/color_scheme.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +11,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      theme: ThemeData(colorScheme: kColorScheme),
+      home: LoginPage(),
     );
   }
 }
