@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_text_field.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});

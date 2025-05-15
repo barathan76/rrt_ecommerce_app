@@ -3,10 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/forgot_password_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/register_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_text_field.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/forgot_password_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/underlined_button.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/forgot_password_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,6 +18,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  void onLogin(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +67,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   SizedBox(height: 30),
-                  AuthButton(onPressed: () {}, text: 'Login'),
+                  AuthButton(
+                    onPressed: () {
+                      onLogin(context);
+                    },
+                    text: 'Login',
+                  ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

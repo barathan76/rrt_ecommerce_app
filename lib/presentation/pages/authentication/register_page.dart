@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/auth_text_field.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/underlined_button.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -15,15 +16,19 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  void onLogin(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16),
             child: Center(
               child: SizedBox(
                 width: 400,
@@ -78,7 +83,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    AuthButton(onPressed: () {}, text: 'Create Account'),
+                    AuthButton(
+                      onPressed: () {
+                        onLogin(context);
+                      },
+                      text: 'Create Account',
+                    ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
