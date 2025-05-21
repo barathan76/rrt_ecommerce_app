@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/input_text_field.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/profile_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
-  void onSubmit(BuildContext context) {
-    Navigator.pop(context);
-  }
+  void onSubmit(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Checkout',
-            style: GoogleFonts.montserrat(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+        title: Text(
+          'Checkout',
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 4),
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(

@@ -13,6 +13,7 @@ class AuthHeaderText extends StatelessWidget {
         style: GoogleFonts.montserrat(
           fontWeight: FontWeight.bold,
           fontSize: 36,
+          color: Colors.black,
         ),
         children: [TextSpan(text: '$text1 \n'), TextSpan(text: text2)],
       ),

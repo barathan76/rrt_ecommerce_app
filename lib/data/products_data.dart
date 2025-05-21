@@ -1,5 +1,4 @@
 import 'package:rrt_ecommerce_app/data/product_model.dart';
-import 'package:rrt_ecommerce_app/data/rating_model.dart';
 
 final data = [
   {
@@ -210,7 +209,3 @@ final data = [
   },
 ];
 List<Product> productsData = data.map((map) => Product.fromMap(map)).toList();
-
-void main() {
-  print(productsData);
-}

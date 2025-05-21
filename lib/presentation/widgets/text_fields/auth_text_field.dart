@@ -9,11 +9,13 @@ class AuthTextField extends StatefulWidget {
     required this.prefixIcon,
     required this.obscure,
     required this.controller,
+    required this.validator,
   });
   final String hintText;
   final IconData prefixIcon;
   final bool obscure;
   final TextEditingController controller;
+  final String? Function(String?) validator;
 
   @override
   State<AuthTextField> createState() => _AuthTextFieldState();
@@ -32,6 +34,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
     return TextFormField(
       obscureText: obscure,
       controller: widget.controller,
+      validator: widget.validator,
       decoration: InputDecoration(
         prefixIcon: Icon(widget.prefixIcon, color: authTextFieldIconColor),
         hintText: widget.hintText,

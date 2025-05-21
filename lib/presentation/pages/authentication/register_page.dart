@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/authentication/auth_functions.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
@@ -16,8 +20,43 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  void onLogin(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HomePage()));
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void onLogin(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final response = await http.post(
+          Uri.parse('http://10.30.154.125:8080/api/auth/register'),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(<String, String>{
+            'email': emailController.text,
+            'password': passwordController.text,
+          }),
+        );
+        if (response.statusCode == 200) {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (ctx) => HomePage()));
+        } else {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Auth failed')));
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Unable to connect at this moment')),
+        );
+      }
+    }
   }
 
   @override
@@ -47,21 +86,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Email',
                       prefixIcon: Icons.person,
                       obscure: false,
-                      controller: TextEditingController(),
+                      controller: emailController,
+                      validator: validateEmail,
                     ),
                     SizedBox(height: 20),
                     AuthTextField(
                       hintText: 'Password',
                       prefixIcon: Icons.lock,
                       obscure: true,
-                      controller: TextEditingController(),
+                      controller: passwordController,
+                      validator: validatePassword,
                     ),
                     SizedBox(height: 20),
                     AuthTextField(
                       hintText: 'ConfirmPassword',
                       prefixIcon: Icons.lock,
                       obscure: true,
-                      controller: TextEditingController(),
+                      controller: confirmPasswordController,
+                      validator:
+                          (value) => validateConfirmPassword(
+                            value,
+                            passwordController.text,
+                          ),
                     ),
                     SizedBox(height: 10),
                     RichText(

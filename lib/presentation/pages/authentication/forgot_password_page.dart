@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/authentication/auth_functions.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
@@ -36,6 +37,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     prefixIcon: Icons.mail,
                     obscure: false,
                     controller: TextEditingController(),
+                    validator: validateEmail,
                   ),
                   SizedBox(height: 10),
 
