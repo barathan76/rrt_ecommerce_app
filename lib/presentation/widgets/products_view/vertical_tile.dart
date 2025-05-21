@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/details/product_details.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/rating_stars.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/product_details/product_details.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
 class VerticalTile extends StatelessWidget {
   const VerticalTile({super.key, required this.product});
@@ -56,7 +57,12 @@ class VerticalTile extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  RatingStars(rating: product.rating, scale: 1),
+                  Row(
+                    children: [
+                      RatingStars(rating: product.rating.rate, scale: 1),
+                      RatingCount(count: product.rating.count, fontSize: 10),
+                    ],
+                  ),
                 ],
               ),
             ),

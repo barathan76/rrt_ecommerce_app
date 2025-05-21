@@ -86,7 +86,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
             child: Container(
               width: 60,
               height: 60,
-
               decoration: BoxDecoration(
                 boxShadow:
                     index != 2

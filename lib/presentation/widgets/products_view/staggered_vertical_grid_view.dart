@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/vertical_tile.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/products_view/vertical_tile.dart';
 
 class StaggeredVerticalGridView extends StatelessWidget {
   const StaggeredVerticalGridView({super.key, required this.productsData});
@@ -12,14 +12,16 @@ class StaggeredVerticalGridView extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     const tileWidth = 150;
     final crossAxisCount = (screenWidth / tileWidth).floor();
-    return MasonryGridView.builder(
-      itemCount: productsData.length,
-      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
+    return Expanded(
+      child: MasonryGridView.builder(
+        itemCount: productsData.length,
+        gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+        ),
+        itemBuilder: (context, index) {
+          return VerticalTile(product: productsData[index]);
+        },
       ),
-      itemBuilder: (context, index) {
-        return VerticalTile(product: productsData[index]);
-      },
     );
   }
 }

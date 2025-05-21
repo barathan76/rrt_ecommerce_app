@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/speech_to_text_dialog.dart';
 
 class SearchBarField extends StatelessWidget {
   const SearchBarField({super.key});
@@ -22,7 +23,12 @@ class SearchBarField extends StatelessWidget {
         suffixIcon: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => SpeechToTextDialog(),
+              );
+            },
             icon: Icon(
               Icons.mic_none,
               color: Color.fromARGB(255, 187, 187, 187),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
 
 class AuthHeaderText extends StatelessWidget {
   const AuthHeaderText({super.key, required this.text1, required this.text2});
@@ -10,9 +10,9 @@ class AuthHeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: GoogleFonts.montserrat(
-          fontWeight: FontWeight.bold,
+        style: mtextStyle(
           fontSize: 36,
+          fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
         children: [TextSpan(text: '$text1 \n'), TextSpan(text: text2)],

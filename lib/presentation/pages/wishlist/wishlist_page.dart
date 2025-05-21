@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/custom_bottom_navigation_bar.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/home_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/home_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/staggered_vertical_grid_view.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/search_bar_field.dart';
 
@@ -18,9 +18,7 @@ class WishlistPage extends StatelessWidget {
           children: [
             SearchBarField(),
             SizedBox(height: 10),
-            Expanded(
-              child: StaggeredVerticalGridView(productsData: productsData),
-            ),
+            StaggeredVerticalGridView(productsData: productsData),
           ],
         ),
       ),

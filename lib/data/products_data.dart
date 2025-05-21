@@ -1,3 +1,4 @@
+import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
 
 final data = [
@@ -209,3 +210,9 @@ final data = [
   },
 ];
 List<Product> productsData = data.map((map) => Product.fromMap(map)).toList();
+
+List<CartItem> cartItems =
+    productsData
+        .sublist(0, 5)
+        .map((x) => CartItem(product: x, count: 1))
+        .toList();

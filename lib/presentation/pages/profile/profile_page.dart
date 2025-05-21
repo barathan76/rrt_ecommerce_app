@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/profile_picker.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
 
 class ProfilePage extends StatelessWidget {
