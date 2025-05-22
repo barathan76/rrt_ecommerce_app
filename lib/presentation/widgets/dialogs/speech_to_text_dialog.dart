@@ -59,6 +59,7 @@ class _SpeechToTextDialogState extends State<SpeechToTextDialog> {
               child: IconButton(
                 icon: Icon(Icons.close),
                 onPressed: () {
+                  _stopListening();
                   Navigator.pop(context, _lastWords);
                 },
               ),
@@ -75,12 +76,13 @@ class _SpeechToTextDialogState extends State<SpeechToTextDialog> {
             ),
             Text(
               _speechToText.isListening
-                  ? _lastWords
+                  ? 'Listening'
                   : _speechEnabled
                   ? 'Tap to Speak'
                   : 'Speech not available',
             ),
-            if (_lastWords.isNotEmpty) Text('Last Words : $_lastWords'),
+
+            Text('Listened Words : $_lastWords', maxLines: 4),
           ],
         ),
       ),

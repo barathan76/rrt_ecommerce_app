@@ -135,33 +135,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             CartItem(product: widget.product, count: 1),
                           );
                         });
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
-                              SnackBar(
-                                content: Text("Item added to cart"),
-                                duration: Duration(seconds: 2),
-                              ),
-                            )
-                            .closed
-                            .then((_) {
-                              if (context.mounted) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (ctx) => CartScreen(),
-                                  ),
-                                );
-                              }
-                            });
-                      } else {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Item already in cart"),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
                       }
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (ctx) => CartScreen()));
                     },
                   ),
                   SizedBox(width: 10),

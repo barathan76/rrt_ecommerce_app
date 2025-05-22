@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/color_scheme.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/settings_page.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -24,9 +27,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // scrollBehavior: const MaterialScrollBehavior().copyWith(
-      //   dragDevices: {PointerDeviceKind.mouse},
-      // ),
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.trackpad,
+          PointerDeviceKind.stylus,
+        },
+      ),
+
       theme: ThemeData(colorScheme: kColorScheme),
       home: HomePage(),
     );

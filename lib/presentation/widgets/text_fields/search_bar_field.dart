@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/speech_to_text_dialog.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/dialogs/speech_to_text_dialog.dart';
 
-class SearchBarField extends StatelessWidget {
+class SearchBarField extends StatefulWidget {
   const SearchBarField({super.key});
+
+  @override
+  State<SearchBarField> createState() => _SearchBarFieldState();
+}
+
+class _SearchBarFieldState extends State<SearchBarField> {
+  TextEditingController controller = TextEditingController();
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: ' Search any Product...',
         hintStyle: GoogleFonts.montserrat(
@@ -23,11 +36,14 @@ class SearchBarField extends StatelessWidget {
         suffixIcon: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: IconButton(
-            onPressed: () {
-              showDialog(
+            onPressed: () async {
+              final data = await showDialog(
                 context: context,
-                builder: (context) => SpeechToTextDialog(),
+                builder: (ctx) => SpeechToTextDialog(),
               );
+              if (data.isNotEmpty) {
+                controller.text = controller.text + data;
+              }
             },
             icon: Icon(
               Icons.mic_none,

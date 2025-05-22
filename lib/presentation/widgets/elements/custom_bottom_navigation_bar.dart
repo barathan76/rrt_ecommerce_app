@@ -3,6 +3,7 @@ import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/profile/profile_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/settings_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/wishlist/wishlist_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/bottom_navigation_button.dart';
 
@@ -68,7 +69,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   }
                   Navigator.of(
                     context,
-                  ).push(MaterialPageRoute(builder: (ctx) => ProfilePage()));
+                  ).push(MaterialPageRoute(builder: (ctx) => SettingsPage()));
                 },
               ),
             ],
