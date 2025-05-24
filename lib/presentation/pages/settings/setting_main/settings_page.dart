@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_grid_tile.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/settings/settings_container.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/settings/settings_data.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/wishlist/wishlist_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_container.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_data.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -26,6 +25,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 4),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -40,32 +40,7 @@ class SettingsPage extends StatelessWidget {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   childAspectRatio: 6,
-                  children: [
-                    SettingsGridTile(
-                      icon: Icons.inventory,
-                      text: 'Orders',
-                      onPressed: () {},
-                    ),
-                    SettingsGridTile(
-                      icon: Icons.favorite,
-                      text: 'Wishlist',
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => WishlistPage()),
-                        );
-                      },
-                    ),
-                    SettingsGridTile(
-                      icon: Icons.card_giftcard,
-                      text: 'Coupans',
-                      onPressed: () {},
-                    ),
-                    SettingsGridTile(
-                      icon: Icons.help,
-                      text: 'Help',
-                      onPressed: () {},
-                    ),
-                  ],
+                  children: [...settingGridTileList(context)],
                 ),
               ),
               SettingsContainer(

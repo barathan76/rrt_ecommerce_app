@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/color_scheme.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/settings/settings_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/orders/orders_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_details.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_page.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -37,7 +38,7 @@ class MainApp extends StatelessWidget {
       ),
 
       theme: ThemeData(colorScheme: kColorScheme),
-      home: HomePage(),
+      home: OrdersPage(),
     );
   }
 }

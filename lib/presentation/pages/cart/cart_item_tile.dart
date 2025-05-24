@@ -23,6 +23,7 @@ class _CartItemTileState extends State<CartItemTile> {
         child: Column(
           children: [
             Row(
+              spacing: 15,
               children: [
                 Container(
                   width: 100,
@@ -45,25 +46,21 @@ class _CartItemTileState extends State<CartItemTile> {
                     height: 100,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 3,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 200,
-                        child: Text(
-                          maxLines: 1,
-                          widget.item.product.title,
-                          style: mtextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        maxLines: 1,
+                        widget.item.product.title,
+                        style: mtextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
