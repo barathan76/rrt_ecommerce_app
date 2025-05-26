@@ -47,7 +47,10 @@ class SettingsPage extends StatelessWidget {
                 list: accountSettings(context),
                 title: 'Account Settings',
               ),
-              SettingsContainer(list: activityList, title: 'My Activity'),
+              SettingsContainer(
+                list: activityList(context),
+                title: 'My Activity',
+              ),
               AuthButton(
                 onPressed: () {
                   Navigator.pop(context);

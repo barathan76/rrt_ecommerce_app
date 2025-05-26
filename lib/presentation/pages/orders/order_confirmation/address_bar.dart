@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+import 'package:rrt_ecommerce_app/data/address.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+
+class AddressBar extends StatelessWidget {
+  const AddressBar({super.key, required this.address});
+  final Address address;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [normalBoxShadow()],
+        borderRadius: BorderRadius.circular(4),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          spacing: 10,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Deliver To:'),
+                TextButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      color: const Color.fromARGB(255, 189, 189, 189),
+                    ),
+                  ),
+                  child: Text("Change"),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  address.name,
+                  style: mtextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(width: 25),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 225, 224, 224),
+                  ),
+                  child: Text(
+                    style: mtextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
+                    address.addressType == AddressType.home ? 'Home' : 'Work',
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              '${address.addressLine1} ${address.addressLine2} ${address.city} ${address.state} ${address.pincode}',
+              maxLines: 3,
+            ),
+            Text('${address.number}'),
+          ],
+        ),
+      ),
+    );
+  }
+}

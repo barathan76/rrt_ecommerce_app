@@ -255,6 +255,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             _showError = true;
           });
         }
+        return null;
       },
       keyboardType: widget.keyboardType ?? TextInputType.text,
       style: mtextStyle(fontSize: 14, fontWeight: FontWeight.w500),

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
+import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/icon_text_gradient_button.dart';
@@ -150,6 +152,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                     text: 'Buy now',
                     icon: Icons.touch_app,
                     onPressed: () {},
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.product.wishlist = !widget.product.wishlist;
+                        if (widget.product.wishlist) {
+                          wishlistData.add(widget.product);
+                        } else if (wishlistData.contains(widget.product)) {
+                          wishlistData.remove(widget.product);
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      widget.product.wishlist
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: authButtonColor,
+                    ),
                   ),
                 ],
               ),

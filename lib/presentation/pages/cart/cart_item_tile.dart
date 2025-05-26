@@ -4,16 +4,19 @@ import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
-class CartItemTile extends StatefulWidget {
-  const CartItemTile({super.key, required this.item, required this.onRemove});
+class CartItemTile extends StatelessWidget {
+  const CartItemTile({
+    super.key,
+    required this.item,
+    required this.onRemove,
+    required this.onMinus,
+    required this.onAdd,
+  });
   final CartItem item;
   final void Function() onRemove;
+  final void Function() onMinus;
+  final void Function() onAdd;
 
-  @override
-  State<CartItemTile> createState() => _CartItemTileState();
-}
-
-class _CartItemTileState extends State<CartItemTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -40,7 +43,7 @@ class _CartItemTileState extends State<CartItemTile> {
                     ],
                   ),
                   child: Image.network(
-                    widget.item.product.imageUrl,
+                    item.product.imageUrl,
 
                     fit: BoxFit.contain,
                     height: 100,
@@ -54,7 +57,7 @@ class _CartItemTileState extends State<CartItemTile> {
                     children: [
                       Text(
                         maxLines: 1,
-                        widget.item.product.title,
+                        item.product.title,
                         style: mtextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
@@ -89,7 +92,7 @@ class _CartItemTileState extends State<CartItemTile> {
                             ),
 
                             child: Text(
-                              widget.item.product.category,
+                              item.product.category,
                               style: mtextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w500,
@@ -103,14 +106,14 @@ class _CartItemTileState extends State<CartItemTile> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            '${widget.item.product.rating.rate} ',
+                            '${item.product.rating.rate} ',
                             style: mtextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           RatingStars(
-                            rating: widget.item.product.rating.rate,
+                            rating: item.product.rating.rate,
                             scale: 1,
                           ),
                         ],
@@ -130,7 +133,7 @@ class _CartItemTileState extends State<CartItemTile> {
                           ],
                         ),
                         child: Text(
-                          '\$ ${(widget.item.product.price).toStringAsFixed(2)}',
+                          '\$ ${(item.product.price).toStringAsFixed(2)}',
                           style: mtextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -150,7 +153,7 @@ class _CartItemTileState extends State<CartItemTile> {
                   spacing: 10,
                   children: [
                     Text(
-                      'Total Order (${widget.item.count})',
+                      'Total Order (${item.count})',
                       style: mtextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -161,22 +164,14 @@ class _CartItemTileState extends State<CartItemTile> {
                       icon: Icons.remove,
                       color: Colors.grey,
                       size: 12,
-                      isdisabled: widget.item.count == 1,
-                      onPressed: () {
-                        setState(() {
-                          widget.item.count--;
-                        });
-                      },
+                      isdisabled: item.count == 1,
+                      onPressed: onMinus,
                     ),
                     CircleIconButton(
                       icon: Icons.add,
                       color: Colors.grey,
                       size: 12,
-                      onPressed: () {
-                        setState(() {
-                          widget.item.count++;
-                        });
-                      },
+                      onPressed: onAdd,
                     ),
                     Container(
                       padding: EdgeInsets.all(3),
@@ -197,7 +192,7 @@ class _CartItemTileState extends State<CartItemTile> {
                           Colors.white,
                         ),
                         borderRadius: BorderRadius.circular(50),
-                        onTap: widget.onRemove,
+                        onTap: onRemove,
                         child: Text(
                           'Remove',
                           style: mtextStyle(
@@ -212,7 +207,7 @@ class _CartItemTileState extends State<CartItemTile> {
                 ),
 
                 Text(
-                  '\$ ${(widget.item.product.price * widget.item.count).toStringAsFixed(2)}',
+                  '\$ ${(item.product.price * item.count).toStringAsFixed(2)}',
                   style: mtextStyle(fontSize: 12, fontWeight: FontWeight.w700),
                 ),
               ],

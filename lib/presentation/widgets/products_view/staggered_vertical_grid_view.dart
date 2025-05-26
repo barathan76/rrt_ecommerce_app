@@ -12,9 +12,17 @@ class StaggeredVerticalGridView extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     const tileWidth = 150;
     final crossAxisCount = (screenWidth / tileWidth).floor();
-    return Expanded(
+    final int count = productsData.length;
+
+    final int rowCount = (count / crossAxisCount).ceil();
+    final double estimatedTileHeight = 300; // Adjust based on your tile
+    final double gridHeight = rowCount * estimatedTileHeight;
+
+    return SizedBox(
+      height: gridHeight,
       child: MasonryGridView.builder(
-        itemCount: productsData.length,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: count,
         gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
         ),

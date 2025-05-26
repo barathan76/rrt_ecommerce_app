@@ -7,14 +7,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        hoverColor: Color.fromARGB(255, 242, 242, 242),
-        onPressed: () {},
-        icon: Icon(
-          Icons.menu_rounded,
-          color: Color.fromARGB(255, 50, 50, 50), // Icon color
-        ),
-      ),
+      automaticallyImplyLeading: false,
+      // leading: IconButton(
+      //   hoverColor: Color.fromARGB(255, 242, 242, 242),
+      //   onPressed: () {
+      //     Scaffold.of(context).openDrawer();
+      //   },
+      //   icon: Icon(
+      //     Icons.menu_rounded,
+      //     color: Color.fromARGB(255, 50, 50, 50), // Icon color
+      //   ),
+      // ),
       title: Text(
         'Trendz',
         style: GoogleFonts.libreCaslonText(

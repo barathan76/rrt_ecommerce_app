@@ -13,15 +13,17 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SearchBarField(),
-            HorizontalListView(productList: productsData),
-            StaggeredVerticalGridView(productsData: productsData),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SearchBarField(),
+              HorizontalListView(productList: productsData),
+              StaggeredVerticalGridView(productsData: productsData),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(index: 0),

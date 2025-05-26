@@ -8,6 +8,7 @@ class Product {
   final String category;
   final String imageUrl;
   final Rating rating;
+  bool wishlist;
   Product({
     required this.id,
     required this.title,
@@ -16,6 +17,7 @@ class Product {
     required this.category,
     required this.imageUrl,
     required this.rating,
+    this.wishlist = false,
   });
 
   factory Product.fromMap(Map<String, dynamic> map) {
