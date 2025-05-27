@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class SettingsContainer extends StatelessWidget {
   const SettingsContainer({super.key, required this.list, required this.title});
@@ -9,13 +8,7 @@ class SettingsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: [normalBoxShadow()],
-      ),
+    return kOutlineContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

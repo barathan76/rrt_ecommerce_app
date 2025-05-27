@@ -5,6 +5,7 @@ class CartItem {
   final Product product;
   int count;
   @override
+  // ignore: hash_and_equals
   bool operator ==(Object other) {
     if (other is Product) {
       return other.id == product.id;

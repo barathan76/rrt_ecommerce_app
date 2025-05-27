@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_container.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_data.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -51,7 +51,7 @@ class SettingsPage extends StatelessWidget {
                 list: activityList(context),
                 title: 'My Activity',
               ),
-              AuthButton(
+              SubmitButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.of(

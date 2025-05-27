@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
-class UnderlinedButton extends StatelessWidget {
-  const UnderlinedButton({
+class UOTextButton extends StatelessWidget {
+  const UOTextButton({
     super.key,
     required this.text,
     required this.fontSize,
     required this.onPressed,
+    this.underline = true,
   });
   final String text;
   final double fontSize;
+  final bool underline;
   final void Function() onPressed;
 
   @override
@@ -21,16 +22,16 @@ class UnderlinedButton extends StatelessWidget {
         overlayColor: WidgetStateProperty.all(Colors.transparent),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
-            return authButtonColor;
+            return kRedColor;
           }
-          return authButtonColor.withValues(alpha: 0.7);
+          return kRedColor.withValues(alpha: 0.7);
         }),
         textStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
-          return GoogleFonts.montserrat(
-            decoration: TextDecoration.underline,
+          return mtextStyle().copyWith(
+            decoration: underline ? TextDecoration.underline : null,
             fontSize: fontSize,
             fontWeight: FontWeight.w500,
-            decorationThickness: 0.5,
+            decorationThickness: underline ? 0.5 : null,
           );
         }),
       ),

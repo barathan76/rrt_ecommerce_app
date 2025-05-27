@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/auth_functions.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -29,7 +28,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AuthHeaderText(text1: 'Forgot', text2: 'password?'),
+                  authHeaderText(text1: 'Forgot', text2: 'password?'),
 
                   SizedBox(height: 30),
                   AuthTextField(
@@ -44,10 +43,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   RichText(
                     textAlign: TextAlign.left,
                     text: TextSpan(
-                      style: GoogleFonts.montserrat(
-                        fontSize: 12,
-                        color: Colors.black,
-                      ),
+                      style: mtextStyle(fontSize: 12, color: Colors.black),
                       children: [
                         TextSpan(
                           text: '* ',
@@ -62,7 +58,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
 
                   SizedBox(height: 30),
-                  AuthButton(
+                  SubmitButton(
                     onPressed: () {
                       Navigator.of(
                         context,

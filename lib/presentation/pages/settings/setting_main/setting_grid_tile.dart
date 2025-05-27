@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class SettingsGridTile extends StatelessWidget {
   const SettingsGridTile({
@@ -17,15 +16,8 @@ class SettingsGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: kOutlineContainer(
         padding: EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.white,
-
-          boxShadow: [normalBoxShadow()],
-        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,

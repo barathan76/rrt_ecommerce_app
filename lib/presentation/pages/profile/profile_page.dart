@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/uo_text_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -16,10 +16,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Profile Details',
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
+          style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(index: 4),
@@ -50,7 +47,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: UnderlinedButton(
+                  child: UOTextButton(
                     text: 'Change Password',
                     fontSize: 12,
                     onPressed: () {},
@@ -89,7 +86,7 @@ class ProfilePage extends StatelessWidget {
                   hint: 'type country',
                 ),
                 divide(),
-                AuthButton(
+                SubmitButton(
                   onPressed: () {
                     onSubmit(context);
                   },
@@ -118,10 +115,7 @@ class TitleText extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: GoogleFonts.montserrat(
-          fontWeight: FontWeight.w600,
-          fontSize: 18,
-        ),
+        style: mtextStyle(fontWeight: FontWeight.w600, fontSize: 18),
       ),
     );
   }

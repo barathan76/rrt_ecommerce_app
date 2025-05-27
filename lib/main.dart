@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/color_scheme.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 
 void main() {

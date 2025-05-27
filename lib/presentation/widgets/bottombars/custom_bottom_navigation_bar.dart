@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_page.dart';
@@ -28,7 +28,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               BottomNavigationButton(
                 icon: Icons.home_filled,
                 text: 'Home',
-                color: index == 0 ? authButtonColor : Colors.black,
+                color: index == 0 ? kRedColor : Colors.black,
                 onPressed: () {
                   if (index == 0) {
                     return;
@@ -41,7 +41,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               BottomNavigationButton(
                 icon: Icons.favorite_border,
                 text: 'Wishlist',
-                color: index == 1 ? authButtonColor : Colors.black,
+                color: index == 1 ? kRedColor : Colors.black,
                 onPressed: () {
                   if (index == 1) {
                     return;
@@ -55,13 +55,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
               BottomNavigationButton(
                 icon: Icons.search,
                 text: 'Search',
-                color: index == 3 ? authButtonColor : Colors.black,
+                color: index == 3 ? kRedColor : Colors.black,
                 onPressed: () {},
               ),
               BottomNavigationButton(
                 icon: Icons.settings,
                 text: 'Settings',
-                color: index == 4 ? authButtonColor : Colors.black,
+                color: index == 4 ? kRedColor : Colors.black,
                 onPressed: () {
                   if (index == 4) {
                     return;
@@ -98,7 +98,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           ),
                         ]
                         : null,
-                color: index == 2 ? authButtonColor : Colors.white,
+                color: index == 2 ? kRedColor : Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 4),
               ),

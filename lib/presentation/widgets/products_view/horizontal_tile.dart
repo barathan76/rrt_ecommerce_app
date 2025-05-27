@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/product_details/product_details.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
@@ -43,26 +43,17 @@ class HorizontalTile extends StatelessWidget {
 
             Text(
               product.title,
-              style: GoogleFonts.montserrat(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              style: mtextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               overflow: TextOverflow.ellipsis,
             ),
             Text(
               product.description,
               maxLines: 2,
-              style: GoogleFonts.montserrat(
-                fontSize: 10,
-                fontWeight: FontWeight.normal,
-              ),
+              style: mtextStyle(fontSize: 10, fontWeight: FontWeight.normal),
             ),
             Text(
               '\$${product.price}',
-              style: GoogleFonts.montserrat(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+              style: mtextStyle(fontSize: 12, fontWeight: FontWeight.w700),
             ),
             Row(
               children: [

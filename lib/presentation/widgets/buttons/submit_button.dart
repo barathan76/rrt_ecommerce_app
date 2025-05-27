@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
-class AuthButton extends StatelessWidget {
-  const AuthButton({super.key, required this.onPressed, required this.text});
+class SubmitButton extends StatelessWidget {
+  const SubmitButton({super.key, required this.onPressed, required this.text});
   final void Function() onPressed;
   final String text;
   @override
@@ -11,14 +10,14 @@ class AuthButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onPressed(),
       style: ElevatedButton.styleFrom(
-        backgroundColor: authButtonColor,
+        backgroundColor: kRedColor,
         padding: EdgeInsets.symmetric(vertical: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
       child: Center(
         child: Text(
           text,
-          style: GoogleFonts.montserrat(
+          style: mtextStyle(
             color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.w500,

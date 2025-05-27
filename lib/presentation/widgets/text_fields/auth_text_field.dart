@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class AuthTextField extends StatefulWidget {
   const AuthTextField({
@@ -38,7 +37,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       decoration: InputDecoration(
         prefixIcon: Icon(widget.prefixIcon, color: authTextFieldIconColor),
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.montserrat(
+        hintStyle: mtextStyle(
           color: authTextFieldHintColor,
           fontSize: 12,
           fontWeight: FontWeight.w500,

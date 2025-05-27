@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/data/address.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 
 class AddressDetails extends StatefulWidget {
   const AddressDetails({
@@ -85,7 +83,7 @@ class _AddressDetailsState extends State<AddressDetails> {
           style: mtextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: authButtonColor,
+            color: kRedColor,
           ),
         ),
       ),
@@ -182,7 +180,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                       ],
                     ),
                     SizedBox(width: 10),
-                    AuthButton(
+                    SubmitButton(
                       onPressed: () {
                         onSubmit();
                       },
@@ -273,7 +271,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ? Icon(widget.suffixIcon, color: authTextFieldIconColor)
                 : null,
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.montserrat(
+        hintStyle: mtextStyle(
           color: authTextFieldHintColor,
           fontSize: 12,
           fontWeight: FontWeight.w500,

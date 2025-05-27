@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/order_confirmation_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/custom_outlined_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_bottom_navigation_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -31,7 +30,7 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(Icons.shopping_bag, size: 40, color: authButtonColor),
+            Icon(Icons.shopping_bag, size: 40, color: kRedColor),
             SizedBox(width: 5),
             Text(
               'Your Cart',
@@ -75,24 +74,15 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                       ),
                     ),
-                    BottomAppBar(
-                      height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Total Amount : $totalAmount'),
-                          CustomOutlinedButton(
-                            title: 'Place Order',
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => OrderConfirmationPage(),
-                                ),
-                              );
-                            },
+                    CartBottomAppBar(
+                      totalAmount: totalAmount,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => OrderConfirmationPage(),
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key, required this.order});
@@ -27,14 +26,8 @@ class OrderDetails extends StatelessWidget {
                 ),
               ),
               ...order.cartItems.map(
-                (x) => Container(
+                (x) => kOutlineContainer(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: [normalBoxShadow()],
-                    color: Colors.white,
-                  ),
                   child: Row(
                     spacing: 10,
                     children: [
@@ -91,15 +84,10 @@ class OrderDetails extends StatelessWidget {
                 ),
               ),
 
-              Container(
+              kOutlineContainer(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
 
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  boxShadow: [normalBoxShadow()],
-                  color: Colors.white,
-                ),
                 child: Text.rich(
                   TextSpan(
                     children: [

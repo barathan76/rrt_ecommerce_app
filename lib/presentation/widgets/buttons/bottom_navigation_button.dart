@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class BottomNavigationButton extends StatelessWidget {
   const BottomNavigationButton({
@@ -21,7 +21,7 @@ class BottomNavigationButton extends StatelessWidget {
         overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
-            return authButtonColor.withValues(alpha: 0.5);
+            return kRedColor.withValues(alpha: 0.5);
           }
           return color;
         }),

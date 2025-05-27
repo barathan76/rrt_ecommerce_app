@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
@@ -15,7 +14,7 @@ class CustomOutlinedButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: Colors.transparent),
-        backgroundColor: authButtonColor,
+        backgroundColor: kRedColor,
       ),
 
       onPressed: onPressed,

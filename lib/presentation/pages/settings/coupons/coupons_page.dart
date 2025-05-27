@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/orders/order_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/appbars/app_bar_cs.dart';
 
 class CouponsPage extends StatelessWidget {
   const CouponsPage({super.key});
@@ -7,7 +7,7 @@ class CouponsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OrdersAppBar(title: 'Coupons'),
+      appBar: AppBarCS(title: 'Coupons'),
       body: Center(child: Text("No Coupons available")),
     );
   }

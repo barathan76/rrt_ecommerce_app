@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/my_orders/order_details.dart';
 
 class OrderTile extends StatelessWidget {
@@ -15,26 +14,17 @@ class OrderTile extends StatelessWidget {
           () => Navigator.of(context).push(
             MaterialPageRoute(builder: (ctx) => OrderDetails(order: order)),
           ),
-      child: Container(
+      child: kOutlineNSContainer(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.white,
-        ),
         child: Row(
           spacing: 10,
           crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
-            Container(
+            kOutlineContainer(
               width: 80,
               height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Colors.white,
-                boxShadow: [normalBoxShadow()],
-              ),
               child: Image.network(
                 order.cartItems[0].product.imageUrl,
                 width: double.infinity,

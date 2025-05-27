@@ -1,15 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/auth_header_text.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/auth_functions.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/auth_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/uo_text_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/underlined_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -42,19 +40,23 @@ class _RegisterPageState extends State<RegisterPage> {
             'password': passwordController.text,
           }),
         );
-        if (response.statusCode == 200) {
-          Navigator.of(
-            context,
-          ).push(MaterialPageRoute(builder: (ctx) => HomePage()));
-        } else {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Auth failed')));
+        if (context.mounted) {
+          if (response.statusCode == 200) {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (ctx) => HomePage()));
+          } else {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('Auth failed')));
+          }
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Unable to connect at this moment')),
-        );
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Unable to connect at this moment')),
+          );
+        }
       }
     }
   }
@@ -76,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: AuthHeaderText(
+                      child: authHeaderText(
                         text1: 'Create an',
                         text2: 'account',
                       ),
@@ -112,10 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 10),
                     RichText(
                       text: TextSpan(
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                          color: Colors.black,
-                        ),
+                        style: mtextStyle(fontSize: 12, color: Colors.black),
                         children: [
                           TextSpan(text: 'By clicking the '),
                           TextSpan(
@@ -129,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    AuthButton(
+                    SubmitButton(
                       onPressed: () {
                         onLogin(context);
                       },
@@ -141,13 +140,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         Text(
                           'I Already Have an Account ',
-                          style: GoogleFonts.montserrat(
+                          style: mtextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 87, 87, 87),
                           ),
                         ),
-                        UnderlinedButton(
+                        UOTextButton(
                           text: 'Login',
                           fontSize: 12,
                           onPressed: () {

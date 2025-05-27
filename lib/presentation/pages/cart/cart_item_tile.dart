@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/cart_item.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
@@ -20,7 +20,7 @@ class CartItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: kCardColor,
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -28,20 +28,8 @@ class CartItemTile extends StatelessWidget {
             Row(
               spacing: 15,
               children: [
-                Container(
+                kOutlineContainer(
                   width: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 1,
-                        spreadRadius: 1,
-                        color: Color.fromARGB(255, 202, 202, 202),
-                        blurStyle: BlurStyle.outer,
-                      ),
-                    ],
-                  ),
                   child: Image.network(
                     item.product.imageUrl,
 
@@ -49,6 +37,7 @@ class CartItemTile extends StatelessWidget {
                     height: 100,
                   ),
                 ),
+
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -81,14 +70,7 @@ class CartItemTile extends StatelessWidget {
 
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(width: 2, color: Colors.white),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Color.fromARGB(255, 202, 202, 202),
-                                ),
-                              ],
+                              boxShadow: [greyBoxShadow],
                             ),
 
                             child: Text(
@@ -145,7 +127,7 @@ class CartItemTile extends StatelessWidget {
                 ),
               ],
             ),
-            Divider(color: Color.fromARGB(255, 187, 187, 187)),
+            Divider(color: kDividerColor),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -178,14 +160,7 @@ class CartItemTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
-                          BoxShadow(
-                            blurStyle: BlurStyle.outer,
-                            blurRadius: 1,
-                            spreadRadius: 1,
-                            color: Color.fromARGB(255, 202, 202, 202),
-                          ),
-                        ],
+                        boxShadow: [greyBoxShadow],
                       ),
                       child: InkWell(
                         overlayColor: WidgetStatePropertyAll<Color>(

@@ -4,12 +4,12 @@ import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
 import 'package:rrt_ecommerce_app/data/ordes_data.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/address_bar.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/custom_outlined_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/dialogs/order_confimation_dialog.dart';
 
 class OrderConfirmationPage extends StatefulWidget {
   const OrderConfirmationPage({super.key});
@@ -56,26 +56,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
             _redirectToHome(context);
           }
         });
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.check_circle,
-                color: authButtonColor,
-                size: 100, // Large icon size
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Order Confirmed!',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        );
+        return orderConfirmationDialog;
       },
     );
   }
@@ -89,7 +70,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
           style: mtextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w800,
-            color: authButtonColor,
+            color: kRedColor,
           ),
         ),
       ),
@@ -120,10 +101,9 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                   ),
             ),
           ),
-          Container(
+          kOutlineNSContainer(
             padding: EdgeInsets.all(8),
             width: double.infinity,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
             child: Text.rich(
               TextSpan(
                 children: [
@@ -145,21 +125,11 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
               ),
             ),
           ),
-
-          BottomAppBar(
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Total Amount : $totalAmount'),
-                CustomOutlinedButton(
-                  title: 'Confirm Order',
-                  onPressed: () {
-                    _showOrderSuccessDialog(context);
-                  },
-                ),
-              ],
-            ),
+          CartBottomAppBar(
+            totalAmount: totalAmount,
+            onPressed: () {
+              _showOrderSuccessDialog(context);
+            },
           ),
         ],
       ),

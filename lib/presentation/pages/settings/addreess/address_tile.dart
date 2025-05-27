@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/address.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/box_shadow.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/text_style.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class AddressTile extends StatelessWidget {
   const AddressTile({
@@ -19,7 +18,7 @@ class AddressTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [normalBoxShadow()],
+        boxShadow: [greyBoxShadow],
         borderRadius: BorderRadius.circular(4),
         color: Colors.white,
       ),

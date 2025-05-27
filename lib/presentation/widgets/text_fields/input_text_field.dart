@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({
@@ -22,7 +22,7 @@ class InputTextField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.montserrat(
+            style: mtextStyle(
               color: Colors.black,
               fontSize: 12,
               fontWeight: FontWeight.normal,
@@ -32,7 +32,7 @@ class InputTextField extends StatelessWidget {
           TextField(
             obscureText: obscure,
             controller: controller,
-            style: GoogleFonts.montserrat(
+            style: mtextStyle(
               color: Colors.black,
               fontSize: 13,
               fontWeight: FontWeight.w600,

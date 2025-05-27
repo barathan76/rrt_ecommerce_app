@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/product_model.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
 import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/icon_text_gradient_button.dart';
@@ -73,7 +72,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(
                 widget.product.title,
-                style: GoogleFonts.montserrat(
+                style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
@@ -81,7 +80,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(
                 widget.product.category,
-                style: GoogleFonts.montserrat(
+                style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.normal,
                   fontSize: 14,
@@ -95,7 +94,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(
                 '${widget.product.price}',
-                style: GoogleFonts.montserrat(
+                style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -103,7 +102,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(
                 'Product Details',
-                style: GoogleFonts.montserrat(
+                style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -112,7 +111,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               Text(
                 widget.product.description,
                 maxLines: 10,
-                style: GoogleFonts.montserrat(
+                style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
@@ -168,7 +167,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       widget.product.wishlist
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: authButtonColor,
+                      color: kRedColor,
                     ),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/ordes_data.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/orders/order_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/appbars/app_bar_cs.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/my_orders/order_tile.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/search_bar_field.dart';
 
@@ -10,7 +10,7 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OrdersAppBar(title: 'My Orders'),
+      appBar: AppBarCS(title: 'My Orders'),
       body:
           ordersList.isEmpty
               ? Center(child: Text('Nothing here'))
