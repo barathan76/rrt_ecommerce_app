@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/search/search_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/wishlist/wishlist_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/bottom_navigation_button.dart';
@@ -56,7 +57,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 icon: Icons.search,
                 text: 'Search',
                 color: index == 3 ? kRedColor : Colors.black,
-                onPressed: () {},
+                onPressed: () {
+                  if (index == 3) {
+                    return;
+                  }
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (ctx) => SearchPage()));
+                },
               ),
               BottomNavigationButton(
                 icon: Icons.settings,

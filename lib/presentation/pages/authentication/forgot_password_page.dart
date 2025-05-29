@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/authentication/auth_functions.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
+import 'package:rrt_ecommerce_app/services/validators.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -14,6 +13,14 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isloading = false;
+
+  void onSubmit(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,13 +65,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
 
                   SizedBox(height: 30),
-                  SubmitButton(
-                    onPressed: () {
-                      Navigator.of(
-                        context,
-                      ).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
-                    },
-                    text: 'Login',
+                  Center(
+                    child: SubmitButton(
+                      onPressed: () {
+                        onSubmit(context);
+                      },
+                      text: 'Login',
+                      isloading: isloading,
+                    ),
                   ),
                 ],
               ),

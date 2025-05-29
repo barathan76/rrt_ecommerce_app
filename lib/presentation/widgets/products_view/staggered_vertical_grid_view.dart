@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rrt_ecommerce_app/data/product_model.dart';
+import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/vertical_tile.dart';
 
 class StaggeredVerticalGridView extends StatelessWidget {
-  const StaggeredVerticalGridView({super.key, required this.productsData});
+  const StaggeredVerticalGridView({
+    super.key,
+    required this.productsData,
+    this.isScroll = false,
+  });
   final List<Product> productsData;
+  final bool isScroll;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class StaggeredVerticalGridView extends StatelessWidget {
     return SizedBox(
       height: gridHeight,
       child: MasonryGridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: isScroll ? null : NeverScrollableScrollPhysics(),
         itemCount: count,
         gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,

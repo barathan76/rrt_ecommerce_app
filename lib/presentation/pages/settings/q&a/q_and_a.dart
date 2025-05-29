@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 
 class QAndA extends StatelessWidget {
   const QAndA({super.key});

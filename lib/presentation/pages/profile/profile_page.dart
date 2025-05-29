@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/uo_text_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

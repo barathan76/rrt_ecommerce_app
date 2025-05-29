@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/product_model.dart';
+import 'package:products_repository/products_repository.dart' show Product;
+// import 'package:rrt_ecommerce_app/data/product_model.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/horizontal_tile.dart';
 
 class HorizontalListView extends StatelessWidget {

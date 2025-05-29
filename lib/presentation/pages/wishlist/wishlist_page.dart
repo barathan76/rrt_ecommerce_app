@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/search/search_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/home_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/staggered_vertical_grid_view.dart';
@@ -17,7 +18,13 @@ class WishlistPage extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              SearchBarField(),
+              InkWell(
+                child: IgnorePointer(child: SearchBarField()),
+                onTap:
+                    () => Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute(builder: (ctx) => SearchPage())),
+              ),
               SizedBox(height: 10),
               wishlistData.isNotEmpty
                   ? StaggeredVerticalGridView(productsData: wishlistData)

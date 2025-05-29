@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/dialogs/speech_to_text_dialog.dart';
 
-class SearchBarField extends StatefulWidget {
-  const SearchBarField({super.key});
-
-  @override
-  State<SearchBarField> createState() => _SearchBarFieldState();
-}
-
-class _SearchBarFieldState extends State<SearchBarField> {
-  TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+class SearchBarField extends StatelessWidget {
+  const SearchBarField({super.key, this.controller});
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +31,7 @@ class _SearchBarFieldState extends State<SearchBarField> {
                 builder: (ctx) => SpeechToTextDialog(),
               );
               if (data.isNotEmpty) {
-                controller.text = controller.text + data;
+                controller!.text = controller!.text + data;
               }
             },
             icon: Icon(

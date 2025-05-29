@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/data/cart_item.dart';
-import 'package:rrt_ecommerce_app/data/product_model.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';
+// import 'package:rrt_ecommerce_app/data/product_model.dart';
+
 import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
@@ -31,20 +34,20 @@ class _ProductDetailsState extends State<ProductDetails> {
               size: 25,
               color: Colors.black,
               onPressed: () {
-                if (!cartItems.contains(widget.product as Object)) {
-                  setState(() {
-                    cartItems.add(CartItem(product: widget.product, count: 1));
-                  });
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Item added to cart")));
-                } else {
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Item already in cart")),
-                  );
-                }
+                // if (!cartItems.contains(widget.product as Object)) {
+                //   setState(() {
+                //     cartItems.add(CartItem(product: widget.product, count: 1));
+                //   });
+                //   ScaffoldMessenger.of(context).clearSnackBars();
+                //   ScaffoldMessenger.of(
+                //     context,
+                //   ).showSnackBar(SnackBar(content: Text("Item added to cart")));
+                // } else {
+                //   ScaffoldMessenger.of(context).clearSnackBars();
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(content: Text("Item already in cart")),
+                //   );
+                // }
               },
             ),
           ),

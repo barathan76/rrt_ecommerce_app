@@ -1,3 +1,3 @@
-import 'package:rrt_ecommerce_app/data/product_model.dart';
+import 'package:products_repository/products_repository.dart' show Product;
 
 List<Product> wishlistData = [];

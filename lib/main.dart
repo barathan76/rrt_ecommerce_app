@@ -1,13 +1,6 @@
 import 'dart:io';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
-
-void main() {
-  HttpOverrides.global = MyHttpOverrides();
-  runApp(const MainApp());
-}
+import 'package:rrt_ecommerce_app/starters/my_app.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -18,24 +11,7 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.touch,
-          PointerDeviceKind.trackpad,
-          PointerDeviceKind.stylus,
-        },
-      ),
-
-      theme: ThemeData(colorScheme: kColorScheme),
-      home: HomePage(),
-    );
-  }
+void main() {
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const MyApp());
 }

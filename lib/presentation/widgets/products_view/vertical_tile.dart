@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/product_model.dart';
+import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/product_details/product_details.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';

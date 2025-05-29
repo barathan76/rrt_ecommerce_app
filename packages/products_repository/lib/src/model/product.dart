@@ -1,4 +1,4 @@
-import 'package:rrt_ecommerce_app/data/rating_model.dart';
+import 'package:products_repository/src/model/rating.dart';
 
 class Product {
   final int id;
@@ -27,7 +27,7 @@ class Product {
       price: double.parse(map['price'].toString()),
       description: map['description'] as String,
       category: map['category'] as String,
-      imageUrl: map['image'] as String,
+      imageUrl: map['imageUrl'] as String,
       rating: Rating.fromMap(map['rating'] as Map<String, dynamic>),
     );
   }
