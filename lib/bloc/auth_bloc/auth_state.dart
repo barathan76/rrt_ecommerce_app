@@ -14,3 +14,8 @@ final class AuthFailure extends AuthState {
   final String body;
   AuthFailure(this.body);
 }
+
+final class AuthLogoutFailure extends AuthState {
+  final String body;
+  AuthLogoutFailure(this.body);
+}

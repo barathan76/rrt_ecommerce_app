@@ -7,4 +7,6 @@ final registerUrl = Uri.parse('${backend}auth/register');
 
 final loginUrl = Uri.parse('${backend}auth/login');
 
+final logoutUrl = Uri.parse('${backend}auth/logout');
+
 final getProductsUrl = Uri.parse('${backend}products/get_products');

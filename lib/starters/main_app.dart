@@ -22,7 +22,8 @@ class MainApp extends StatelessWidget {
           PointerDeviceKind.stylus,
         },
       ),
-      initialRoute: '/home',
+
+      initialRoute: '/',
       routes: {
         '/': (_) => Splash(),
         '/login': (_) => LoginPage(),
@@ -30,8 +31,8 @@ class MainApp extends StatelessWidget {
         '/forgot': (_) => ForgotPasswordPage(),
         '/home': (_) => HomePage(),
       },
-
       theme: ThemeData(colorScheme: kColorScheme),
+      // home: ProfilePage(),
     );
   }
 }

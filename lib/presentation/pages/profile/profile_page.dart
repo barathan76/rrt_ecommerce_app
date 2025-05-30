@@ -1,121 +1,147 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/appbars/app_bar_cs.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/buttons/uo_text_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
+import 'package:rrt_ecommerce_app/services/image_picker.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-  void onSubmit(BuildContext context) {}
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  File? image;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneNumberController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    emailController.text = 'sample@email.com';
+    super.initState();
+  }
+
+  void onSubmit(BuildContext context) {
+    if (_formKey.currentState!.validate()) {}
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Profile Details',
-          style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-        ),
+      appBar: AppBarCS(
+        title: 'Profile Details',
+        style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
       ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Profile Details',
+      //     style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+      //   ),
+      // ),
       bottomNavigationBar: CustomBottomNavigationBar(index: 4),
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
             width: 350,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10,
-              children: [
-                ProfilePicker(onPressed: () {}),
-
-                TitleText(text: 'Personal Details'),
-
-                InputTextField(
-                  obscure: false,
-                  title: 'Email Address',
-                  controller: TextEditingController(),
-                  hint: 'type email',
-                ),
-
-                InputTextField(
-                  obscure: true,
-                  title: 'Password',
-                  controller: TextEditingController(),
-                  hint: 'type password',
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: UOTextButton(
-                    text: 'Change Password',
-                    fontSize: 12,
-                    onPressed: () {},
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  ProfilePicker(
+                    image: image,
+                    onPressed: () async {
+                      XFile? pickedImage = await imagePicker();
+                      if (pickedImage != null) {
+                        setState(() {
+                          image = File(pickedImage.path);
+                        });
+                      }
+                    },
                   ),
-                ),
-                divide(),
-                TitleText(text: 'Business Address Details'),
-                InputTextField(
-                  obscure: false,
-                  title: 'Pincode',
-                  controller: TextEditingController(),
-                  hint: 'type pincode',
-                ),
-                InputTextField(
-                  obscure: false,
-                  title: 'Address',
-                  controller: TextEditingController(),
-                  hint: 'type address',
-                ),
-                InputTextField(
-                  obscure: false,
-                  title: 'City',
-                  controller: TextEditingController(),
-                  hint: 'type city',
-                ),
-                InputTextField(
-                  obscure: false,
-                  title: 'State',
-                  controller: TextEditingController(),
-                  hint: 'type state',
-                ),
-                InputTextField(
-                  obscure: false,
-                  title: 'Country',
-                  controller: TextEditingController(),
-                  hint: 'type country',
-                ),
-                divide(),
-                SubmitButton(
-                  onPressed: () {
-                    onSubmit(context);
-                  },
-                  text: 'Submit',
-                ),
-                SizedBox(height: 20),
-              ],
+
+                  TitleText(text: 'Personal Details'),
+
+                  // IgnorePointer(
+                  //   child: InputTextField(
+                  //     obscure: true,
+                  //     title: 'Password',
+                  //     controller: passwordController,
+
+                  //     hint: 'type password',
+                  //   ),
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: UOTextButton(
+                  //     text: 'Change Password',
+                  //     fontSize: 12,
+                  //     onPressed: () {},
+                  //   ),
+                  // ),
+                  InputTextField(
+                    obscure: false,
+                    title: 'First Name',
+                    controller: firstNameController,
+                    hint: 'type first name',
+                  ),
+                  InputTextField(
+                    obscure: false,
+                    title: 'Last Name',
+                    controller: lastNameController,
+                    hint: 'type last name',
+                  ),
+                  divide(),
+                  InputTextField(
+                    obscure: false,
+                    title: 'Mobile Number',
+                    regExp: numberRegex,
+                    controller: phoneNumberController,
+
+                    hint: 'type mobile number',
+                  ),
+                  IgnorePointer(
+                    child: InputTextField(
+                      obscure: false,
+                      title: 'Email Address',
+                      controller: emailController,
+                      hint: 'type email',
+                    ),
+                  ),
+
+                  divide(),
+                  SubmitButton(
+                    onPressed: () {
+                      onSubmit(context);
+                    },
+                    text: 'Submit',
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Divider divide() {
-    return Divider(thickness: 1, color: Color.fromARGB(255, 196, 196, 196));
-  }
-}
-
-class TitleText extends StatelessWidget {
-  const TitleText({super.key, required this.text});
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: mtextStyle(fontWeight: FontWeight.w600, fontSize: 18),
       ),
     );
   }

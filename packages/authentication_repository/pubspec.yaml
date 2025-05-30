@@ -12,6 +12,7 @@ dependencies:
   shared_preferences: ^2.5.3
   api_repository:
     path: ../api_repository
+  device_info_plus: ^11.4.0
   # path: ^1.8.0
 
 dev_dependencies:

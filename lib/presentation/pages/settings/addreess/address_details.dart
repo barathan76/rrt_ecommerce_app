@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/address.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/custom_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/custom_text_form_field.dart';
 
 class AddressDetails extends StatefulWidget {
   const AddressDetails({
@@ -108,6 +110,7 @@ class _AddressDetailsState extends State<AddressDetails> {
 
                   title: 'Phone number',
                   keyboardType: TextInputType.number,
+                  regExp: numberRegex,
                 ),
                 CustomTextFormField(
                   controller: stateController,
@@ -129,7 +132,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                     Expanded(
                       child: CustomTextFormField(
                         controller: pincodeController,
-
+                        regExp: numberRegex,
                         title: 'Pincode',
                         keyboardType: TextInputType.number,
                       ),
@@ -193,131 +196,6 @@ class _AddressDetailsState extends State<AddressDetails> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextFormField extends StatefulWidget {
-  const CustomTextFormField({
-    super.key,
-    required this.controller,
-    this.prefixIcon,
-    this.suffixIcon,
-    required this.title,
-    this.hintText,
-    this.keyboardType,
-  });
-
-  final TextEditingController controller;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
-  final String title;
-  final String? hintText;
-  final TextInputType? keyboardType;
-
-  @override
-  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
-}
-
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  final FocusNode _focusNode = FocusNode();
-  bool _showError = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus && _showError) {
-        setState(() {
-          _showError = false;
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      autovalidateMode: AutovalidateMode.onUnfocus,
-      focusNode: _focusNode,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          setState(() {
-            _showError = true;
-          });
-        }
-        return null;
-      },
-      keyboardType: widget.keyboardType ?? TextInputType.text,
-      style: mtextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-      decoration: InputDecoration(
-        label: Text(
-          widget.title,
-          style: mtextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-        ),
-        prefixIcon:
-            widget.prefixIcon != null
-                ? Icon(widget.prefixIcon, color: authTextFieldIconColor)
-                : null,
-        suffixIcon:
-            widget.suffixIcon != null
-                ? Icon(widget.suffixIcon, color: authTextFieldIconColor)
-                : null,
-        hintText: widget.hintText,
-        hintStyle: mtextStyle(
-          color: authTextFieldHintColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: authTextFieldBorderColor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        errorText: _showError ? 'Please provide the necessary details' : null,
-      ),
-    );
-  }
-}
-
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.selectedType,
-    required this.buttonType,
-    required this.onPressed,
-  });
-  final String title;
-  final IconData icon;
-  final AddressType selectedType;
-  final AddressType buttonType;
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    bool condition = selectedType == buttonType;
-    return OutlinedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon, color: condition ? Colors.green : Colors.black),
-      label: Text(
-        title,
-        style: TextStyle(color: condition ? Colors.green : Colors.black),
-      ),
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(
-          color: condition ? Colors.green : Colors.grey,
-          width: 1,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       ),
     );
   }

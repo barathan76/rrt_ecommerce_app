@@ -8,11 +8,13 @@ class InputTextField extends StatelessWidget {
     required this.title,
     required this.controller,
     required this.hint,
+    this.regExp,
   });
   final String title;
   final TextEditingController controller;
   final bool obscure;
   final String hint;
+  final RegExp? regExp;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,9 +31,16 @@ class InputTextField extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          TextField(
+          TextFormField(
             obscureText: obscure,
             controller: controller,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Provide details';
+              } else if (regExp != null && !regExp!.hasMatch(value)) {
+                return 'type valid details';
+              }
+            },
             style: mtextStyle(
               color: Colors.black,
               fontSize: 13,

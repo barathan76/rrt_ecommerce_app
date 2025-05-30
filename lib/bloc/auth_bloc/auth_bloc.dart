@@ -16,15 +16,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthUnAuthenticated());
       }
     });
-    on<AuthLogoutRequestEvent>((event, emit) async {
-      await authRepo.logout();
-      emit(AuthUnAuthenticated());
-    });
 
     on<AuthLoginRequestEvent>((event, emit) async {
       emit(AuthLoading());
       try {
         bool condition = await authRepo.login(event.email, event.password);
+        print('here');
         if (condition) {
           emit(AuthAuthenticated());
         }
@@ -32,6 +29,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailure(e.body));
       } catch (e) {
         emit(AuthFailure('Unable to connect'));
+      }
+    });
+    on<AuthLogoutRequestEvent>((event, emit) async {
+      try {
+        await authRepo.logout();
+        emit(AuthUnAuthenticated());
+      } on AuthFailure catch (e) {
+        emit(AuthLogoutFailure(e.body));
       }
     });
     on<AuthRegisterRequestEvent>((event, emit) async {

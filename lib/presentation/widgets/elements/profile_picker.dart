@@ -1,14 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePicker extends StatefulWidget {
-  const ProfilePicker({super.key, this.imagePath, required this.onPressed});
-  final String? imagePath;
+class ProfilePicker extends StatelessWidget {
+  const ProfilePicker({super.key, this.image, required this.onPressed});
+  final File? image;
   final void Function() onPressed;
-  @override
-  State<ProfilePicker> createState() => _ProfilePickerState();
-}
-
-class _ProfilePickerState extends State<ProfilePicker> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,7 +19,12 @@ class _ProfilePickerState extends State<ProfilePicker> {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white, width: 0),
             image: DecorationImage(
-              image: AssetImage('assets/profile.png'),
+              image:
+                  image == null
+                      ? AssetImage('assets/profile.png')
+                      : kIsWeb
+                      ? NetworkImage(image!.path)
+                      : FileImage(image!),
               // image: widget.imagePath == null ? AssetImage('assets/profile.png') : (
               //   FileImage(widget.imagePath),
               // Replace with your image
@@ -36,7 +39,7 @@ class _ProfilePickerState extends State<ProfilePicker> {
           right: 0,
           child: InkWell(
             onTap: () {
-              widget.onPressed();
+              onPressed();
             },
             customBorder: CircleBorder(),
             child: Container(
