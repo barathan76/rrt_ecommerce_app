@@ -40,6 +40,7 @@ class InputTextField extends StatelessWidget {
               } else if (regExp != null && !regExp!.hasMatch(value)) {
                 return 'type valid details';
               }
+              return null;
             },
             style: mtextStyle(
               color: Colors.black,

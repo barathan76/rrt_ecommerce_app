@@ -21,7 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       try {
         bool condition = await authRepo.login(event.email, event.password);
-        print('here');
+
         if (condition) {
           emit(AuthAuthenticated());
         }

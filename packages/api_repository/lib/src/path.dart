@@ -10,3 +10,8 @@ final loginUrl = Uri.parse('${backend}auth/login');
 final logoutUrl = Uri.parse('${backend}auth/logout');
 
 final getProductsUrl = Uri.parse('${backend}products/get_products');
+
+final getCartUrl = Uri.parse('${backend}cart/cart_items');
+final removeCartItemUrl = Uri.parse('${backend}cart/remove_cart_item');
+
+final setCartItemCountUrl = Uri.parse('${backend}cart/set_cart_item_count');
