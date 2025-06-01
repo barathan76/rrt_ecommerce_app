@@ -46,7 +46,10 @@ class ApiAuthService implements ApiAuth {
   Future<ResponseEntity> logoutService(String token) async {
     final response = await http.post(
       logoutUrl,
-      headers: {"Content-Type": "application/json", "Authorization": token},
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token,
+      },
     );
     return ResponseEntity.fromResponse(response);
   }

@@ -1,7 +1,6 @@
-name: api_repository
+name: storage_repository
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
-publish_to: none
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -9,9 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  http: ^1.4.0
-  storage_repository:
-    path: ../storage_repository
+  shared_preferences: ^2.5.3
   # path: ^1.8.0
 
 dev_dependencies:

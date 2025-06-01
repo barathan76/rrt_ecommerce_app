@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePicker extends StatelessWidget {
   const ProfilePicker({super.key, this.image, required this.onPressed});
-  final File? image;
+  final Uint8List? image;
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
@@ -22,9 +20,7 @@ class ProfilePicker extends StatelessWidget {
               image:
                   image == null
                       ? AssetImage('assets/profile.png')
-                      : kIsWeb
-                      ? NetworkImage(image!.path)
-                      : FileImage(image!),
+                      : MemoryImage(image!),
               // image: widget.imagePath == null ? AssetImage('assets/profile.png') : (
               //   FileImage(widget.imagePath),
               // Replace with your image

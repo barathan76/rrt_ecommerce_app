@@ -20,6 +20,8 @@ dependencies:
     path : packages/authentication_repository
   products_repository : 
     path: packages/products_repository
+  user_repository : 
+    path: packages/user_repository
   image_picker: ^1.1.2
   image_picker_for_web: ^3.0.6
 

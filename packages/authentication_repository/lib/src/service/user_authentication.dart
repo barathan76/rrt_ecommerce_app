@@ -1,33 +1,18 @@
 import 'package:authentication_repository/src/exception/auth_exception.dart';
 import 'package:authentication_repository/src/service/device_info.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:storage_repository/storage_repository.dart';
 
 import '../usecase/authentication_repository.dart';
 import 'package:api_repository/api_repository.dart';
 
 class UserAuthentication implements AuthenticationRepository {
   ApiAuth apiService = ApiAuthService();
+  StorageRepo storageRepo = StorageRepoService();
 
   @override
   Future<bool> isLoggedIn() async {
-    final token = await getToken();
+    final token = await storageRepo.getToken();
     return token != null;
-  }
-
-  @override
-  Future<String?> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user');
-  }
-
-  Future<void> storeUser(String id) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', id);
-  }
-
-  Future<void> removeUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('user');
   }
 
   @override
@@ -40,7 +25,7 @@ class UserAuthentication implements AuthenticationRepository {
     );
 
     if (response.statusCode == 200) {
-      storeUser(response.body);
+      storageRepo.setToken(response.body);
       return true;
     } else if (response.statusCode == 401) {
       throw AuthException(response.body);
@@ -57,7 +42,7 @@ class UserAuthentication implements AuthenticationRepository {
       device,
     );
     if (response.statusCode == 200) {
-      storeUser(response.body);
+      storageRepo.setToken(response.body);
       return true;
     } else if (response.statusCode == 409) {
       throw AuthException(response.body);
@@ -67,10 +52,10 @@ class UserAuthentication implements AuthenticationRepository {
 
   @override
   Future<void> logout() async {
-    final String? token = await getToken();
+    final String? token = await storageRepo.getToken();
     final ResponseEntity response = await apiService.logoutService(token!);
     if (response.statusCode == 200) {
-      await removeUser();
+      await storageRepo.removeToken();
     } else {
       throw AuthException('Logout failed');
     }
