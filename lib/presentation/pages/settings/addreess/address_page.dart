@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/address_bloc/address_bloc.dart';
 import 'package:rrt_ecommerce_app/data/adress_data.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_details.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_tile.dart';
 
-class AddressPage extends StatefulWidget {
+class AddressPage extends StatelessWidget {
   const AddressPage({super.key});
 
   @override
-  State<AddressPage> createState() => _AddressPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<AddressBloc>(
+      create: (context) => AddressBloc()..add(LoadAddressEvent()),
+      child: AddressPageBuilder(),
+    );
+  }
 }
 
-class _AddressPageState extends State<AddressPage> {
+class AddressPageBuilder extends StatefulWidget {
+  const AddressPageBuilder({super.key});
+
+  @override
+  State<AddressPageBuilder> createState() => _AddressPageBuilderState();
+}
+
+class _AddressPageBuilderState extends State<AddressPageBuilder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
