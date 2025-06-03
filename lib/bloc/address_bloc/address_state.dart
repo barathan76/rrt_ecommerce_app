@@ -16,4 +16,7 @@ class AddressListUpdated extends AddressState {
   AddressListUpdated({required this.addressList});
 }
 
-class AddressFailure extends AddressState {}
+class AddressFailure extends AddressState {
+  String msg;
+  AddressFailure({required this.msg});
+}

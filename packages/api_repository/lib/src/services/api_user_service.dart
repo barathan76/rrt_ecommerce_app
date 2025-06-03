@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:api_repository/api_repository.dart';
-import 'package:api_repository/src/path.dart';
+import 'package:api_repository/src/utility/path.dart';
 import 'package:storage_repository/storage_repository.dart';
 import 'package:http/http.dart' as http;
 

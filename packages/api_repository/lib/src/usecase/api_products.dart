@@ -1,4 +1,4 @@
 abstract class ApiProducts {
   Future<List> getProducts();
-  Future<String> filterProducts();
+  Future<List> searchProductsByTitle(String title);
 }

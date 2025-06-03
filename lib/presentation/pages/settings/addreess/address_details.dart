@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/address.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/custom_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/custom_text_form_field.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AddressDetails extends StatefulWidget {
   const AddressDetails({
@@ -14,8 +14,8 @@ class AddressDetails extends StatefulWidget {
     required this.onSubmit,
   });
   final String title;
-  final Address? address;
-  final void Function(Address) onSubmit;
+  final UserAddress? address;
+  final void Function(UserAddress) onSubmit;
 
   @override
   State<AddressDetails> createState() => _AddressDetailsState();
@@ -37,7 +37,7 @@ class _AddressDetailsState extends State<AddressDetails> {
   void initState() {
     if (widget.address != null) {
       nameController.text = widget.address!.name;
-      numberController.text = '${widget.address!.number}';
+      numberController.text = widget.address!.number;
       stateController.text = widget.address!.state;
       cityController.text = widget.address!.city;
       pincodeController.text = '${widget.address!.pincode}';
@@ -63,9 +63,9 @@ class _AddressDetailsState extends State<AddressDetails> {
   void onSubmit() {
     if (_formKey.currentState!.validate()) {
       widget.onSubmit(
-        Address(
+        UserAddress(
           name: nameController.text,
-          number: int.parse(numberController.text),
+          number: numberController.text,
           pincode: int.parse(pincodeController.text),
           state: stateController.text,
           city: cityController.text,

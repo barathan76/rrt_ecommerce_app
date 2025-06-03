@@ -1,23 +1,32 @@
 import 'dart:convert';
 
 import 'package:api_repository/src/exception/api_error.dart';
-import 'package:api_repository/src/path.dart';
+import 'package:api_repository/src/utility/path.dart';
 import 'package:api_repository/src/usecase/api_products.dart';
+import 'package:api_repository/src/utility/storage_repo_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:storage_repository/storage_repository.dart';
 
 class ApiProductsService implements ApiProducts {
   StorageRepo storageRepo = StorageRepoService();
   @override
-  Future<String> filterProducts() {
-    throw UnimplementedError();
+  Future<List> searchProductsByTitle(String title) async {
+    String? token = await userToken;
+    final response = await http.get(
+      searchProducts(title),
+      headers: {'Authorization': '$token'},
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw ApiError(message: response.statusCode.toString());
+    }
   }
 
   @override
   Future<List> getProducts() async {
     try {
       String? token = await storageRepo.getToken();
-      print(token);
       final response = await http.get(
         getProductsUrl,
         headers: {'Authorization': '$token'},

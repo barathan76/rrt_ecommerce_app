@@ -18,12 +18,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserProfileBloc>(
-      create:
-          (BuildContext context) =>
-              UserProfileBloc()..add(LoadUserProfileEvent()),
-      child: ProfilePageBuilder(),
-    );
+    return ProfilePageBuilder();
   }
 }
 
@@ -54,6 +49,9 @@ class _ProfilePageBuilderState extends State<ProfilePageBuilder> {
   @override
   void initState() {
     emailController.text = 'sample@email.com';
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<UserProfileBloc>(context).add(LoadUserProfileEvent());
+    });
     super.initState();
   }
 

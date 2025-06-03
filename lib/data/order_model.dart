@@ -1,5 +1,5 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:rrt_ecommerce_app/data/address.dart';
-import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 

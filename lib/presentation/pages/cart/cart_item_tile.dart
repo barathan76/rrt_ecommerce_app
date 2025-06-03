@@ -1,5 +1,5 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
@@ -136,7 +136,7 @@ class CartItemTile extends StatelessWidget {
                   spacing: 10,
                   children: [
                     Text(
-                      'Total Order (${item.count})',
+                      'Total Order (${item.quantity})',
                       style: mtextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -147,7 +147,7 @@ class CartItemTile extends StatelessWidget {
                       icon: Icons.remove,
                       color: Colors.grey,
                       size: 12,
-                      isdisabled: item.count == 1,
+                      isdisabled: item.quantity == 1,
                       onPressed: onMinus,
                     ),
                     CircleIconButton(
@@ -183,7 +183,7 @@ class CartItemTile extends StatelessWidget {
                 ),
 
                 Text(
-                  '\$ ${(item.product.price * item.count).toStringAsFixed(2)}',
+                  '\$ ${(item.product.price * item.quantity).toStringAsFixed(2)}',
                   style: mtextStyle(fontSize: 12, fontWeight: FontWeight.w700),
                 ),
               ],

@@ -17,4 +17,16 @@ class ProductsRepoService implements ProductsRepo {
       throw LoadError(message: 'Unable to connect');
     }
   }
+
+  @override
+  Future<List<Product>> searchProductsByTitle(String title) async {
+    try {
+      final data = await apiService.searchProductsByTitle(title);
+      return data.map((e) => Product.fromMap(e)).toList();
+    } on ApiError catch (e) {
+      throw LoadError(message: e.message);
+    } catch (e) {
+      throw LoadError(message: e.toString());
+    }
+  }
 }

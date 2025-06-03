@@ -12,8 +12,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       try {
         List<UserAddress> addressList = await userRepoAddress.getAddress();
         emit(AddressLoaded(addressList: addressList));
-      } catch (_) {
-        emit(AddressFailure());
+      } on UserRepoError catch (e) {
+        emit(AddressFailure(msg: e.message));
       }
     });
 
@@ -22,9 +22,27 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       try {
         await userRepoAddress.addAddress(event.address);
         List<UserAddress> addressList = await userRepoAddress.getAddress();
-        emit(AddressLoaded(addressList: addressList));
-      } catch (_) {
-        emit(AddressFailure());
+        emit(AddressListUpdated(addressList: addressList));
+      } on UserRepoError catch (e) {
+        emit(AddressFailure(msg: e.message));
+      }
+    });
+    on<DeleteAddressEvent>((event, emit) async {
+      try {
+        await userRepoAddress.deleteAddress(event.id);
+        List<UserAddress> addressList = await userRepoAddress.getAddress();
+        emit(AddressListUpdated(addressList: addressList));
+      } on UserRepoError catch (e) {
+        emit(AddressFailure(msg: e.message));
+      }
+    });
+    on<UpdateAddressEvent>((event, emit) async {
+      try {
+        await userRepoAddress.updateAddress(event.address, event.id);
+        List<UserAddress> addressList = await userRepoAddress.getAddress();
+        emit(AddressListUpdated(addressList: addressList));
+      } on UserRepoError catch (e) {
+        emit(AddressFailure(msg: e.message));
       }
     });
   }

@@ -1,5 +1,6 @@
 abstract class ApiCart {
-  Future<List> getCartItems(String token);
-  Future<String> setCartItemCount(String token, int id, int count);
-  Future<String> removeCartItem(String token, int id);
+  Future<List> getCartItems();
+  Future<Map<String, dynamic>> addCartItem(int productId, int quantity);
+  Future<Map<String, dynamic>> updateCartItem(int productId, int quantity);
+  Future<bool> deleteCartItem(int productId);
 }

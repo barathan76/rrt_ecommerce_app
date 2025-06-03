@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart' show Product;
-import 'package:rrt_ecommerce_app/data/products_data.dart';
+import 'package:rrt_ecommerce_app/bloc/search_products_bloc/search_products_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/home_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/staggered_vertical_grid_view.dart';
@@ -15,7 +16,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
-  List<Product> searchList = [];
 
   @override
   void initState() {
@@ -31,13 +31,13 @@ class _SearchPageState extends State<SearchPage> {
 
   void _onSearchChanged() {
     final query = controller.text.toLowerCase();
+    if (query.isEmpty) {
+      BlocProvider.of<SearchProductsBloc>(context).add(EmptySearchProducts());
+    }
     if (query.isNotEmpty) {
-      setState(() {
-        searchList =
-            productsData.where((product) {
-              return product.title.toLowerCase().contains(query);
-            }).toList();
-      });
+      BlocProvider.of<SearchProductsBloc>(
+        context,
+      ).add(SearchProductsByTitle(query));
     }
   }
 
@@ -52,15 +52,24 @@ class _SearchPageState extends State<SearchPage> {
             SearchBarField(controller: controller),
 
             Expanded(
-              child:
-                  searchList.isEmpty && controller.text.isEmpty
-                      ? Center(child: Text("Search"))
-                      : controller.text.isNotEmpty && searchList.isEmpty
-                      ? Center(child: Text("No items available"))
-                      : StaggeredVerticalGridView(
-                        productsData: searchList,
-                        isScroll: true,
-                      ),
+              child: BlocBuilder<SearchProductsBloc, SearchProductsState>(
+                builder: (context, state) {
+                  if (state is SearchProductsLoaded) {
+                    if (controller.text.isEmpty) {
+                      return Center(child: Text("Search"));
+                    } else if (state.productsList.isEmpty) {
+                      return Center(child: Text("No items available"));
+                    }
+                    return StaggeredVerticalGridView(
+                      productsData: state.productsList,
+                      isScroll: true,
+                    );
+                  } else if (state is SearchProductsFailure) {
+                    return Center(child: Text(state.message));
+                  }
+                  return Center(child: Text("Search"));
+                },
+              ),
             ),
           ],
         ),

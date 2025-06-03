@@ -22,6 +22,8 @@ dependencies:
     path: packages/products_repository
   user_repository : 
     path: packages/user_repository
+  cart_repository : 
+    path: packages/cart_repository
   image_picker: ^1.1.2
   image_picker_for_web: ^3.0.6
 

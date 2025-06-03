@@ -1,7 +1,8 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart' show Product;
-import 'package:rrt_ecommerce_app/data/cart_item.dart';
-import 'package:rrt_ecommerce_app/data/products_data.dart';
+import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
 // import 'package:rrt_ecommerce_app/data/product_model.dart';
 
 import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
@@ -24,6 +25,8 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<CartBloc>(context);
+    List<CartItem> cartItems = bloc.state.cartItems;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -34,20 +37,18 @@ class _ProductDetailsState extends State<ProductDetails> {
               size: 25,
               color: Colors.black,
               onPressed: () {
-                // if (!cartItems.contains(widget.product as Object)) {
-                //   setState(() {
-                //     cartItems.add(CartItem(product: widget.product, count: 1));
-                //   });
-                //   ScaffoldMessenger.of(context).clearSnackBars();
-                //   ScaffoldMessenger.of(
-                //     context,
-                //   ).showSnackBar(SnackBar(content: Text("Item added to cart")));
-                // } else {
-                //   ScaffoldMessenger.of(context).clearSnackBars();
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     SnackBar(content: Text("Item already in cart")),
-                //   );
-                // }
+                if (!cartItems.contains(widget.product as Object)) {
+                  bloc.add(AddCartItemEvent(productId: widget.product.id));
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Item added to cart")));
+                } else {
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Item already in cart")),
+                  );
+                }
               },
             ),
           ),
@@ -134,11 +135,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     icon: Icons.shopping_cart,
                     onPressed: () {
                       if (!cartItems.contains(widget.product as Object)) {
-                        setState(() {
-                          cartItems.add(
-                            CartItem(product: widget.product, count: 1),
-                          );
-                        });
+                        bloc.add(
+                          AddCartItemEvent(productId: widget.product.id),
+                        );
                       }
                       Navigator.of(
                         context,

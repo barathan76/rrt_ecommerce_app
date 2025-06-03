@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:api_repository/api_repository.dart';
-import 'package:api_repository/src/path.dart';
-import 'package:api_repository/src/usecase/api_address.dart';
+import 'package:api_repository/src/utility/path.dart';
 import 'package:http/http.dart' as http;
 import 'package:storage_repository/storage_repository.dart';
 
@@ -16,7 +15,7 @@ class ApiAddressService implements ApiAddress {
       headers: {'Authorization': '$token', 'Content-Type': 'application/json'},
       body: json.encode(address),
     );
-    if (response.statusCode != 201) {
+    if (response.statusCode != 200) {
       throw ApiError(message: 'Failed to add address');
     }
   }

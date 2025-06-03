@@ -1,9 +1,10 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
 import 'package:rrt_ecommerce_app/data/adress_data.dart';
-import 'package:rrt_ecommerce_app/data/cart_item.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
 import 'package:rrt_ecommerce_app/data/ordes_data.dart';
-import 'package:rrt_ecommerce_app/data/products_data.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
@@ -20,10 +21,10 @@ class OrderConfirmationPage extends StatefulWidget {
 }
 
 class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
-  double get totalAmount {
+  double getTotalAmount(List<CartItem> cartItems) {
     double total = 0;
     for (CartItem item in cartItems) {
-      total += item.count * item.product.price;
+      total += item.quantity * item.product.price;
     }
     return total;
   }
@@ -35,19 +36,16 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
     );
   }
 
-  void _showOrderSuccessDialog(BuildContext context) {
+  void _showOrderSuccessDialog(BuildContext context, List<CartItem> cartItems) {
     ordersList.add(
       Order(
         cartItems: cartItems,
-        amount: totalAmount,
+        amount: getTotalAmount(cartItems),
         address: addressesList[0],
         statusMap: initStatusMap(cartItems),
         currentStatusMap: initCurrentStatus(cartItems),
       ),
     );
-    setState(() {
-      cartItems = [];
-    });
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Scaffold()));
     showDialog(
       context: context,
@@ -64,6 +62,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget content = Center(child: Text('No items in cart'));
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -75,64 +74,85 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          AddressBar(address: addressesList[0]),
-          Expanded(
-            child: ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder:
-                  (context, index) => CartItemTile(
-                    onRemove: () {
-                      setState(() {
-                        cartItems.removeAt(index);
-                      });
-                    },
-                    item: cartItems[index],
-                    onMinus: () {
-                      setState(() {
-                        cartItems[index].count--;
-                      });
-                    },
-                    onAdd: () {
-                      setState(() {
-                        cartItems[index].count++;
-                      });
-                    },
-                  ),
-            ),
-          ),
-          kOutlineNSContainer(
-            padding: EdgeInsets.all(8),
-            width: double.infinity,
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Delivery\n',
-                    style: mtextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextSpan(
-                    text: 'Cash on Delivery',
-                    style: mtextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+      body: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          final bloc = context.watch<CartBloc>();
+          List<CartItem> cartItems = bloc.state.cartItems;
+          if (cartItems.isEmpty) {
+            return Center(child: content);
+          }
+
+          return Column(
+            children: [
+              AddressBar(address: addressesList[0]),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: cartItems.length,
+                  itemBuilder:
+                      (context, index) => CartItemTile(
+                        onMinus: () {
+                          bloc.add(
+                            UpdateCartItemEvent(
+                              index: index,
+                              quantity: cartItems[index].quantity - 1,
+                              productId: cartItems[index].product.id,
+                            ),
+                          );
+                        },
+                        onAdd: () {
+                          bloc.add(
+                            UpdateCartItemEvent(
+                              index: index,
+                              quantity: cartItems[index].quantity + 1,
+                              productId: cartItems[index].product.id,
+                            ),
+                          );
+                        },
+                        onRemove: () {
+                          bloc.add(
+                            RemoveCartItemEvent(
+                              index: index,
+                              productId: cartItems[index].product.id,
+                            ),
+                          );
+                        },
+                        item: cartItems[index],
+                      ),
+                ),
               ),
-            ),
-          ),
-          CartBottomAppBar(
-            totalAmount: totalAmount,
-            onPressed: () {
-              _showOrderSuccessDialog(context);
-            },
-          ),
-        ],
+              kOutlineNSContainer(
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Delivery\n',
+                        style: mtextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Cash on Delivery',
+                        style: mtextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CartBottomAppBar(
+                totalAmount: getTotalAmount(cartItems),
+                onPressed: () {
+                  _showOrderSuccessDialog(context, cartItems);
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }

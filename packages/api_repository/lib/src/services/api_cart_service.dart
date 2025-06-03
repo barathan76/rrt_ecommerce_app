@@ -1,16 +1,17 @@
 import 'dart:convert';
 
 import 'package:api_repository/api_repository.dart';
-import 'package:api_repository/src/path.dart';
-import 'package:api_repository/src/usecase/api_cart.dart';
+import 'package:api_repository/src/utility/path.dart';
+import 'package:api_repository/src/utility/storage_repo_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCartService implements ApiCart {
   @override
-  Future<List> getCartItems(String token) async {
+  Future<List> getCartItems() async {
+    String? token = await userToken;
     final response = await http.get(
       getCartUrl,
-      headers: {"Authorization": token},
+      headers: {"Authorization": '$token'},
     );
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -19,26 +20,51 @@ class ApiCartService implements ApiCart {
   }
 
   @override
-  Future<String> removeCartItem(String token, int id) async {
+  Future<bool> deleteCartItem(int productId) async {
+    String? token = await userToken;
     final response = await http.delete(
-      removeCartItemUrl,
-      headers: {"Authorization": token, "id": '$id'},
+      removeCartItem(productId),
+      headers: {"Authorization": '$token'},
     );
     if (response.statusCode == 200) {
-      return response.body;
+      return true;
     }
     throw ApiError(message: 'Failed to remove item');
   }
 
   @override
-  Future<String> setCartItemCount(String token, int id, int count) async {
+  Future<Map<String, dynamic>> updateCartItem(
+    int productId,
+    int quantity,
+  ) async {
+    String? token = await userToken;
     final response = await http.put(
-      setCartItemCountUrl,
-      headers: {"Authorization": token, "id": '$id'},
-      body: count,
+      updateCartItemUrl,
+      headers: {"Authorization": '$token', 'Content-Type': 'application/json'},
+      body: jsonEncode(<String, dynamic>{
+        'productId': productId,
+        'quantity': quantity,
+      }),
     );
     if (response.statusCode == 200) {
-      return response.body;
+      return jsonDecode(response.body);
+    }
+    throw ApiError(message: 'Failed to update item');
+  }
+
+  @override
+  Future<Map<String, dynamic>> addCartItem(int productId, int quantity) async {
+    String? token = await userToken;
+    final response = await http.post(
+      addCartItemUrl,
+      headers: {"Authorization": '$token', 'Content-Type': 'application/json'},
+      body: jsonEncode(<String, dynamic>{
+        'productId': productId,
+        'quantity': quantity,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
     }
     throw ApiError(message: 'Failed to update item');
   }

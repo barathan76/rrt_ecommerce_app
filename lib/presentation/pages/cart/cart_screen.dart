@@ -1,6 +1,7 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/cart_item.dart';
-import 'package:rrt_ecommerce_app/data/products_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
@@ -8,18 +9,12 @@ import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/o
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
-
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  double get totalAmount {
+  double getTotalAmount(List<CartItem> cartItems) {
     double total = 0;
     for (CartItem item in cartItems) {
-      total += item.count * item.product.price;
+      total += item.quantity * item.product.price;
     }
     return total;
   }
@@ -44,50 +39,72 @@ class _CartScreenState extends State<CartScreen> {
           ],
         ),
       ),
-      body:
-          cartItems.isEmpty
-              ? content
-              : Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: cartItems.length,
-                        itemBuilder:
-                            (context, index) => CartItemTile(
-                              onMinus: () {
-                                setState(() {
-                                  cartItems[index].count--;
-                                });
-                              },
-                              onAdd: () {
-                                setState(() {
-                                  cartItems[index].count++;
-                                });
-                              },
-                              onRemove: () {
-                                setState(() {
-                                  cartItems.removeAt(index);
-                                });
-                              },
-                              item: cartItems[index],
-                            ),
-                      ),
-                    ),
-                    CartBottomAppBar(
-                      totalAmount: totalAmount,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => OrderConfirmationPage(),
+      body: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          final bloc = context.watch<CartBloc>();
+
+          List<CartItem> cartItems = bloc.state.cartItems;
+          if (state is CartFailure) {
+            return Center(child: Text(state.msg));
+          }
+          if (cartItems.isEmpty) {
+            return content;
+          } else {
+            return Padding(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder:
+                          (context, index) => CartItemTile(
+                            onMinus: () {
+                              bloc.add(
+                                UpdateCartItemEvent(
+                                  index: index,
+                                  quantity: cartItems[index].quantity - 1,
+                                  productId: cartItems[index].product.id,
+                                ),
+                              );
+                            },
+                            onAdd: () {
+                              bloc.add(
+                                UpdateCartItemEvent(
+                                  index: index,
+                                  quantity: cartItems[index].quantity + 1,
+                                  productId: cartItems[index].product.id,
+                                ),
+                              );
+                            },
+                            onRemove: () {
+                              bloc.add(
+                                RemoveCartItemEvent(
+                                  index: index,
+                                  productId: cartItems[index].product.id,
+                                ),
+                              );
+                            },
+                            item: cartItems[index],
                           ),
-                        );
-                      },
                     ),
-                  ],
-                ),
+                  ),
+                  CartBottomAppBar(
+                    totalAmount: getTotalAmount(cartItems),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => OrderConfirmationPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
+            );
+          }
+        },
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(index: 2),
     );
   }

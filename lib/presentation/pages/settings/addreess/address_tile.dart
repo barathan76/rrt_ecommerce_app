@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/address.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AddressTile extends StatelessWidget {
   const AddressTile({
@@ -12,11 +12,12 @@ class AddressTile extends StatelessWidget {
   final void Function() onEdit;
   final void Function() onRemove;
 
-  final Address address;
+  final UserAddress address;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
       decoration: BoxDecoration(
         boxShadow: [greyBoxShadow],
         borderRadius: BorderRadius.circular(4),

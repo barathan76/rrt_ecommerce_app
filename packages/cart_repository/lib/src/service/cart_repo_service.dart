@@ -1,19 +1,31 @@
+import 'package:api_repository/api_repository.dart';
 import 'package:cart_repository/cart_repository.dart';
 import 'package:cart_repository/src/model/cart_item.dart';
+import 'package:products_repository/products_repository.dart';
 
 class CartRepoService implements CartRepo {
+  ApiCart apiCart = ApiCartService();
   @override
-  Future<List<CartItem>> getCartItems() {
-    throw UnimplementedError();
+  Future<CartItem> addCartItem(int productId, int quantity) async {
+    final x = await apiCart.addCartItem(productId, quantity);
+    return CartItem.fromMap(x);
   }
 
   @override
-  Future<bool> removeCartItem(int index) {
-    throw UnimplementedError();
+  Future<List<CartItem>> getCartItems() async {
+    List list = await apiCart.getCartItems();
+    print(list);
+    return list.map((x) => CartItem.fromMap(x)).toList();
   }
 
   @override
-  Future<bool> updateCartItem(int index) {
-    throw UnimplementedError();
+  Future<bool> removeCartItem(int productId) async {
+    return await apiCart.deleteCartItem(productId);
+  }
+
+  @override
+  Future<CartItem> updateCartItem(int productId, int quantity) async {
+    final x = await apiCart.updateCartItem(productId, quantity);
+    return CartItem.fromMap(x);
   }
 }

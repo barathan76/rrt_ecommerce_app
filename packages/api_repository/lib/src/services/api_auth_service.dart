@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:api_repository/src/entity/response_entity.dart';
-import 'package:api_repository/src/path.dart';
+import 'package:api_repository/src/utility/path.dart';
 import 'package:api_repository/src/usecase/api_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -46,10 +46,7 @@ class ApiAuthService implements ApiAuth {
   Future<ResponseEntity> logoutService(String token) async {
     final response = await http.post(
       logoutUrl,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": token,
-      },
+      headers: {"Content-Type": "application/json", "Authorization": token},
     );
     return ResponseEntity.fromResponse(response);
   }
