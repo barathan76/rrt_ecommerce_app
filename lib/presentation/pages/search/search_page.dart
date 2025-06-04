@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/bloc/search_products_bloc/search_products_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/home_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';

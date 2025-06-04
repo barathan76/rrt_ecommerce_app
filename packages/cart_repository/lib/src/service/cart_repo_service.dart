@@ -1,7 +1,5 @@
 import 'package:api_repository/api_repository.dart';
 import 'package:cart_repository/cart_repository.dart';
-import 'package:cart_repository/src/model/cart_item.dart';
-import 'package:products_repository/products_repository.dart';
 
 class CartRepoService implements CartRepo {
   ApiCart apiCart = ApiCartService();

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:products_repository/products_repository.dart' show Product;
 
 class CartItem {
