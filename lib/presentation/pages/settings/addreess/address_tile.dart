@@ -63,7 +63,7 @@ class AddressTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${address.number}'),
+                Text(address.number),
                 Row(
                   spacing: 2,
                   children: [

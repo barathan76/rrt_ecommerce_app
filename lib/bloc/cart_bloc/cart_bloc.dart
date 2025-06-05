@@ -9,14 +9,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
     on<RemoveCartItemEvent>((event, emit) async {
       try {
-        bool condition = await cartRepo.removeCartItem(event.index);
+        bool condition = await cartRepo.removeCartItem(event.productId);
         if (condition == true) {
           List<CartItem> cartItems = [...state.cartItems];
           cartItems.removeAt(event.index);
           emit(CartUpdated(cartItems));
         }
       } catch (e) {
-        emit(CartFailure([], e.toString()).copyWith(state));
+        emit(CartFailure(state.cartItems, e.toString()).copyWith(state));
       }
     });
     on<LoadCartEvent>((event, emit) async {
@@ -51,6 +51,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartUpdated(cartItems));
       } catch (e) {
         emit(CartFailure([], e.toString()).copyWith(state));
+      }
+    });
+    on<ClearCartEvent>((event, emit) async {
+      try {
+        await cartRepo.clearCart();
+        emit(CartUpdated([]));
+      } catch (e) {
+        emit(CartFailure([], e.toString()));
       }
     });
   }

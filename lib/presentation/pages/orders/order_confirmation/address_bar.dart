@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/address.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AddressBar extends StatelessWidget {
   const AddressBar({super.key, required this.address});
-  final Address address;
+  final UserAddress address;
   @override
   Widget build(BuildContext context) {
     return kOutlineContainer(

@@ -1,9 +1,9 @@
-import 'package:rrt_ecommerce_app/data/address.dart';
+import 'package:user_repository/user_repository.dart';
 
-List<Address> addressesList = [
-  Address(
+List<UserAddress> addressesList = [
+  UserAddress(
     name: 'Thanos',
-    number: 7234589139,
+    number: '7234589139',
     pincode: 500055,
     state: 'Marley',
     city: 'Parley',

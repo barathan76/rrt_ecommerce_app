@@ -1,5 +1,5 @@
 final backEndl = 'http://192.168.1.6:8080/api/';
-final backEnd2 = 'http://10.30.154.125:8080/api/';
+final backEnd2 = 'http://10.30.154.29:8080/api/';
 
 final backend = backEnd2;
 
@@ -28,3 +28,17 @@ Uri removeCartItem(int productId) =>
 
 Uri searchProducts(String title) =>
     Uri.parse('${backend}products/search/$title');
+
+Uri clearCartUrl = Uri.parse('${backend}user/cart/clear');
+
+final placeOrderUrl = Uri.parse("${backend}user/order/place");
+
+final getUserOrdersUrl = Uri.parse("${backend}user/order/all");
+
+Uri wishlistUrl = Uri.parse('${backend}user/wishlist');
+
+Uri toogleWishlistUrl(int productId) =>
+    Uri.parse('${backend}user/wishlist/toggle/$productId');
+
+Uri checkWishlistUrl(int productId) =>
+    Uri.parse('${backend}user/wishlist/check/$productId');

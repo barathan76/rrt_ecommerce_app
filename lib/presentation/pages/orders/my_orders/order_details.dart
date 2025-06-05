@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart'
+    hide formatedDate;
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key, required this.order});

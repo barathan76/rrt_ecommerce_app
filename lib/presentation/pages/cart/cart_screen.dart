@@ -5,7 +5,8 @@ import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/order_confirmation_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/ordersWithBloc/order_confirmation/order_confirmation_page.dart';
+
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 

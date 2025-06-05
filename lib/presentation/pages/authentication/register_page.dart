@@ -10,6 +10,7 @@ import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/uo_text_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/auth_text_field.dart';
+import 'package:rrt_ecommerce_app/services/bloc_initializer.dart';
 import 'package:rrt_ecommerce_app/services/validators.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -90,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
             isloading = true;
           });
         } else if (state is AuthAuthenticated) {
+          blocInitializer(context);
           Navigator.pushReplacementNamed(context, '/home');
         } else if (state is AuthFailure) {
           setState(() {

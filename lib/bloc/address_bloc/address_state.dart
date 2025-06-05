@@ -1,22 +1,27 @@
 part of 'address_bloc.dart';
 
-sealed class AddressState {}
+sealed class AddressState {
+  final List<UserAddress> addressList;
+  AddressState(this.addressList);
+}
 
-class AddressInitial extends AddressState {}
+class AddressInitial extends AddressState {
+  AddressInitial() : super([]);
+}
 
-class AddressLoading extends AddressState {}
+class AddressLoading extends AddressState {
+  AddressLoading() : super([]);
+}
 
 class AddressLoaded extends AddressState {
-  final List<UserAddress> addressList;
-  AddressLoaded({required this.addressList});
+  AddressLoaded(super.addressList);
 }
 
 class AddressListUpdated extends AddressState {
-  final List<UserAddress> addressList;
-  AddressListUpdated({required this.addressList});
+  AddressListUpdated(super.addressList);
 }
 
 class AddressFailure extends AddressState {
   String msg;
-  AddressFailure({required this.msg});
+  AddressFailure(super.addressList, {required this.msg});
 }

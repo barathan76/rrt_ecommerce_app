@@ -1,6 +1,6 @@
 import 'package:cart_repository/cart_repository.dart';
-import 'package:rrt_ecommerce_app/data/address.dart';
 import 'package:intl/intl.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
 final uuid = Uuid();
@@ -27,7 +27,7 @@ class Order {
   final Map<int, Map<OrderStatus, DateTime>> statusMap;
   final Map<int, OrderStatus> currentStatusMap;
   final double amount;
-  final Address address;
+  final UserAddress address;
 
   Order({
     required this.amount,

@@ -28,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } on AuthFailure catch (e) {
         emit(AuthFailure(e.body));
       } catch (e) {
+        print(e);
         emit(AuthFailure('Unable to connect'));
       }
     });

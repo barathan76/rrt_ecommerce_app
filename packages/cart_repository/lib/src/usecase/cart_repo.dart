@@ -5,4 +5,5 @@ abstract class CartRepo {
   Future<CartItem> updateCartItem(int productId, int quantity);
   Future<bool> removeCartItem(int productId);
   Future<CartItem> addCartItem(int productId, int quantity);
+  Future<void> clearCart();
 }

@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/address_bloc/address_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/auth_bloc/auth_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/order_bloc/order_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/products_bloc/products_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/search_products_bloc/search_products_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/select_address_bloc/select_address_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/user_profile_bloc/user_profile_bloc.dart';
 import 'package:rrt_ecommerce_app/starters/main_app.dart';
 
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => AddressBloc()),
         BlocProvider(create: (context) => CartBloc()),
         BlocProvider(create: (context) => SearchProductsBloc()),
+        BlocProvider(create: (context) => OrderBloc()),
+        BlocProvider(create: (context) => SelectAddressBloc()),
       ],
       child: MainApp(),
     );

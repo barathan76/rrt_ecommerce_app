@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 
 TextStyle mtextStyle({double? fontSize, FontWeight? fontWeight, Color? color}) {
@@ -85,3 +86,7 @@ Container kOutlineNSContainer({
   ),
   child: child,
 );
+
+String formatedDate(DateTime date) {
+  return DateFormat('dd/MM/yyyy').format(date);
+}

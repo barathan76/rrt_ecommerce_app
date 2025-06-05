@@ -1,4 +1,4 @@
-import 'package:cart_repository/cart_repository.dart';
+import 'package:cart_repository/cart_repository.dart' hide Order;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';

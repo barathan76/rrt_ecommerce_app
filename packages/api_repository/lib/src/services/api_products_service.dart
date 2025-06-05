@@ -5,10 +5,8 @@ import 'package:api_repository/src/utility/path.dart';
 import 'package:api_repository/src/usecase/api_products.dart';
 import 'package:api_repository/src/utility/storage_repo_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:storage_repository/storage_repository.dart';
 
 class ApiProductsService implements ApiProducts {
-  StorageRepo storageRepo = StorageRepoService();
   @override
   Future<List> searchProductsByTitle(String title) async {
     String? token = await userToken;

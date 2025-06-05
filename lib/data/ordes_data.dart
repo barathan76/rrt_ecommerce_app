@@ -1,4 +1,4 @@
-import 'package:cart_repository/cart_repository.dart';
+import 'package:cart_repository/cart_repository.dart' show CartItem;
 import 'package:rrt_ecommerce_app/data/adress_data.dart';
 import 'package:rrt_ecommerce_app/data/order_model.dart';
 import 'package:rrt_ecommerce_app/data/products_data.dart';

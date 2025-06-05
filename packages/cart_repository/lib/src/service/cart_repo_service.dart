@@ -26,4 +26,9 @@ class CartRepoService implements CartRepo {
     final x = await apiCart.updateCartItem(productId, quantity);
     return CartItem.fromMap(x);
   }
+
+  @override
+  Future<void> clearCart() async {
+    await apiCart.clearCart();
+  }
 }
