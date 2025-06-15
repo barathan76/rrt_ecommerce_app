@@ -6,8 +6,9 @@ import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dar
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
 class VerticalTile extends StatelessWidget {
-  const VerticalTile({super.key, required this.product});
+  const VerticalTile({super.key, required this.product, this.imageSize});
   final Product product;
+  final double? imageSize;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +24,22 @@ class VerticalTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(product.imageUrl),
-            ),
+            SizedBox(height: 5),
+            imageSize != null
+                ? Center(
+                  child: SizedBox(
+                    width: imageSize,
+                    height: 50,
+                    child: Image.network(product.imageUrl, fit: BoxFit.contain),
+                  ),
+                )
+                : ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(product.imageUrl),
+                ),
             const SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.all(8.0),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

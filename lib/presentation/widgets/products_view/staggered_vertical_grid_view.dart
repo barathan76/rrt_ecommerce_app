@@ -18,23 +18,16 @@ class StaggeredVerticalGridView extends StatelessWidget {
     const tileWidth = 150;
     final crossAxisCount = (screenWidth / tileWidth).floor();
     final int count = productsData.length;
-
-    final int rowCount = (count / crossAxisCount).ceil();
-    final double estimatedTileHeight = 300; // Adjust based on your tile
-    final double gridHeight = rowCount * estimatedTileHeight;
-
-    return SizedBox(
-      height: gridHeight,
-      child: MasonryGridView.builder(
-        physics: isScroll ? null : NeverScrollableScrollPhysics(),
-        itemCount: count,
-        gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-        ),
-        itemBuilder: (context, index) {
-          return VerticalTile(product: productsData[index]);
-        },
+    return MasonryGridView.builder(
+      physics: isScroll ? null : NeverScrollableScrollPhysics(),
+      itemCount: count,
+      shrinkWrap: true,
+      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
       ),
+      itemBuilder: (context, index) {
+        return VerticalTile(product: productsData[index]);
+      },
     );
   }
 }

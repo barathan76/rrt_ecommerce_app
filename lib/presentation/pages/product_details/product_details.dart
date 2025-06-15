@@ -3,29 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/wishlist_bloc/wishlist_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/wishlist_products_bloc/wishlist_products_bloc.dart';
 // import 'package:rrt_ecommerce_app/data/product_model.dart';
 
-import 'package:rrt_ecommerce_app/data/wishlist_data.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/icon_text_gradient_button.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_snackbar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
-class ProductDetails extends StatefulWidget {
+class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key, required this.product});
   final Product product;
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
-}
-
-class _ProductDetailsState extends State<ProductDetails> {
-  @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<CartBloc>(context);
+    final bloc = context.watch<CartBloc>();
     List<CartItem> cartItems = bloc.state.cartItems;
     return Scaffold(
       appBar: AppBar(
@@ -37,18 +34,9 @@ class _ProductDetailsState extends State<ProductDetails> {
               size: 25,
               color: Colors.black,
               onPressed: () {
-                if (!cartItems.contains(widget.product as Object)) {
-                  bloc.add(AddCartItemEvent(productId: widget.product.id));
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Item added to cart")));
-                } else {
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Item already in cart")),
-                  );
-                }
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (ctx) => CartScreen()));
               },
             ),
           ),
@@ -68,14 +56,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                   border: Border.all(width: 10, color: Colors.white),
                 ),
                 child: Image.network(
-                  widget.product.imageUrl,
+                  product.imageUrl,
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.contain,
                 ),
               ),
               Text(
-                widget.product.title,
+                product.title,
                 style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -83,7 +71,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
               Text(
-                widget.product.category,
+                product.category,
                 style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.normal,
@@ -92,12 +80,12 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Row(
                 children: [
-                  RatingStars(rating: widget.product.rating.rate, scale: 2),
-                  RatingCount(count: widget.product.rating.count, fontSize: 15),
+                  RatingStars(rating: product.rating.rate, scale: 2),
+                  RatingCount(count: product.rating.count, fontSize: 15),
                 ],
               ),
               Text(
-                '${widget.product.price}',
+                '${product.price}',
                 style: mtextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -113,7 +101,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
               Text(
-                widget.product.description,
+                product.description,
                 maxLines: 10,
                 style: mtextStyle(
                   color: Colors.black,
@@ -134,10 +122,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     text: 'Go to cart',
                     icon: Icons.shopping_cart,
                     onPressed: () {
-                      if (!cartItems.contains(widget.product as Object)) {
-                        bloc.add(
-                          AddCartItemEvent(productId: widget.product.id),
-                        );
+                      if (!cartItems.contains(product as Object)) {
+                        bloc.add(AddCartItemEvent(productId: product.id));
                       }
                       Navigator.of(
                         context,
@@ -152,24 +138,37 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ],
                     text: 'Buy now',
                     icon: Icons.touch_app,
-                    onPressed: () {},
-                  ),
-                  IconButton(
                     onPressed: () {
-                      setState(() {
-                        widget.product.wishlist = !widget.product.wishlist;
-                        if (widget.product.wishlist) {
-                          wishlistData.add(widget.product);
-                        } else if (wishlistData.contains(widget.product)) {
-                          wishlistData.remove(widget.product);
-                        }
-                      });
+                      if (!cartItems.contains(product as Object)) {
+                        bloc.add(AddCartItemEvent(productId: product.id));
+                        showSnackBar(context, content: 'Item added to cart');
+                      } else {
+                        showSnackBar(context, content: 'Item already in cart');
+                      }
                     },
-                    icon: Icon(
-                      widget.product.wishlist
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: kRedColor,
+                  ),
+                  BlocProvider<WishlistBloc>(
+                    create:
+                        (context) =>
+                            WishlistBloc()..add(CheckWishListed(product.id)),
+                    child: Builder(
+                      builder: (context) {
+                        final bloc = context.watch<WishlistBloc>();
+                        return IconButton(
+                          onPressed: () {
+                            BlocProvider.of<WishlistProductsBloc>(
+                              context,
+                            ).add(ToggleWishlistProduct(product.id));
+                            bloc.add(CheckWishListed(product.id));
+                          },
+                          icon: Icon(
+                            bloc.state is ProductWishlisted
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: kRedColor,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

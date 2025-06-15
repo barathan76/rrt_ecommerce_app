@@ -2,9 +2,11 @@ import 'package:cart_repository/cart_repository.dart' hide Order;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
-import 'package:rrt_ecommerce_app/data/adress_data.dart';
-import 'package:rrt_ecommerce_app/data/order_model.dart';
-import 'package:rrt_ecommerce_app/data/ordes_data.dart';
+import 'package:rrt_ecommerce_app/bloc/order_bloc/order_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/select_address_bloc/select_address_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/wishlist_bloc/wishlist_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/wishlist_products_bloc/wishlist_products_bloc.dart';
+
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
@@ -13,14 +15,9 @@ import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/a
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/dialogs/order_confimation_dialog.dart';
 
-class OrderConfirmationPage extends StatefulWidget {
+class OrderConfirmationPage extends StatelessWidget {
   const OrderConfirmationPage({super.key});
 
-  @override
-  State<OrderConfirmationPage> createState() => _OrderConfirmationPageState();
-}
-
-class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
   double getTotalAmount(List<CartItem> cartItems) {
     double total = 0;
     for (CartItem item in cartItems) {
@@ -37,16 +34,21 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
   }
 
   void _showOrderSuccessDialog(BuildContext context, List<CartItem> cartItems) {
-    ordersList.add(
-      Order(
-        cartItems: cartItems,
-        amount: getTotalAmount(cartItems),
-        address: addressesList[0],
-        statusMap: initStatusMap(cartItems),
-        currentStatusMap: initCurrentStatus(cartItems),
-      ),
-    );
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Scaffold()));
+    final address =
+        BlocProvider.of<SelectAddressBloc>(context).state.userAddress;
+
+    if (address == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(title: Text("Select an address")),
+      );
+      return;
+    }
+    BlocProvider.of<OrderBloc>(
+      context,
+    ).add(PlaceOrderEvent(cartItems, address));
+    BlocProvider.of<CartBloc>(context).add(ClearCartEvent());
+    // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Scaffold()));
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -77,6 +79,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           final bloc = context.watch<CartBloc>();
+
           List<CartItem> cartItems = bloc.state.cartItems;
           if (cartItems.isEmpty) {
             return Center(child: content);
@@ -84,7 +87,10 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
 
           return Column(
             children: [
-              AddressBar(address: addressesList[0]),
+              BlocBuilder<SelectAddressBloc, SelectAddressState>(
+                builder:
+                    (context, state) => AddressBar(address: state.userAddress),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: cartItems.length,
@@ -109,12 +115,42 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                           );
                         },
                         onRemove: () {
-                          bloc.add(
-                            RemoveCartItemEvent(
-                              index: index,
-                              productId: cartItems[index].product.id,
-                            ),
-                          );
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder:
+                                (context) => AlertDialog(
+                                  title: Text('Do you need to add to wishlist'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        BlocProvider.of<WishlistProductsBloc>(
+                                          context,
+                                        ).add(
+                                          AddWishlistProduct(
+                                            cartItems[index].product.id,
+                                          ),
+                                        );
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('No'),
+                                    ),
+                                  ],
+                                ),
+                          ).then((shouldRemove) {
+                            bloc.add(
+                              RemoveCartItemEvent(
+                                index: index,
+                                productId: cartItems[index].product.id,
+                              ),
+                            );
+                          });
                         },
                         item: cartItems[index],
                       ),

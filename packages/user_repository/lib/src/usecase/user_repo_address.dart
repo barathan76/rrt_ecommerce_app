@@ -5,4 +5,7 @@ abstract class UserRepoAddress {
   Future<void> addAddress(UserAddress userAddress);
   Future<void> updateAddress(UserAddress userAddress, int id);
   Future<void> deleteAddress(int id);
+
+  Future<UserAddress?> getSelectedAddress();
+  Future<void> selectAddress(int addressId);
 }

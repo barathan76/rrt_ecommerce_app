@@ -8,6 +8,7 @@ class UserRepoAddressService implements UserRepoAddress {
   @override
   Future<void> addAddress(UserAddress userAddress) async {
     try {
+      print(userAddress);
       await apiAddress.addAddress(userAddress.toMap());
     } on ApiError catch (e) {
       throw UserRepoError(message: e.message);
@@ -47,6 +48,28 @@ class UserRepoAddressService implements UserRepoAddress {
       throw UserRepoError(message: e.message);
     } catch (e) {
       throw UserRepoError(message: e.toString());
+    }
+  }
+
+  @override
+  Future<UserAddress?> getSelectedAddress() async {
+    try {
+      final x = await apiAddress.getSelectedAddress();
+      if (x == null) {
+        return null;
+      }
+      return UserAddress.fromMap(x);
+    } on ApiError catch (e) {
+      throw UserRepoError(message: e.message);
+    }
+  }
+
+  @override
+  Future<void> selectAddress(int addressId) async {
+    try {
+      await apiAddress.selectAddress(addressId);
+    } on ApiError catch (e) {
+      throw UserRepoError(message: e.message);
     }
   }
 }

@@ -37,3 +37,5 @@ String? validateConfirmPassword(String? value, String? password) {
   }
   return null;
 }
+
+final numberRegex = RegExp(r'^[0-9]+$');

@@ -28,6 +28,7 @@ class SearchBarField extends StatelessWidget {
             onPressed: () async {
               final data = await showDialog(
                 context: context,
+                barrierDismissible: false,
                 builder: (ctx) => SpeechToTextDialog(),
               );
               if (data.isNotEmpty) {

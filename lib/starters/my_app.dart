@@ -9,6 +9,7 @@ import 'package:rrt_ecommerce_app/bloc/products_bloc/products_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/search_products_bloc/search_products_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/select_address_bloc/select_address_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/user_profile_bloc/user_profile_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/wishlist_products_bloc/wishlist_products_bloc.dart';
 import 'package:rrt_ecommerce_app/starters/main_app.dart';
 
 class MyApp extends StatelessWidget {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SearchProductsBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => SelectAddressBloc()),
+        BlocProvider(create: (context) => WishlistProductsBloc()),
       ],
       child: MainApp(),
     );

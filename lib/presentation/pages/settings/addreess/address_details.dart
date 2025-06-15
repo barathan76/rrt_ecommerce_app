@@ -4,6 +4,7 @@ import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/custom_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/custom_text_form_field.dart';
+import 'package:rrt_ecommerce_app/services/validators.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AddressDetails extends StatefulWidget {
@@ -71,6 +72,7 @@ class _AddressDetailsState extends State<AddressDetails> {
           city: cityController.text,
           addressLine1: address1Controller.text,
           addressLine2: address2Controller.text,
+          addressType: selectedAddressType,
         ),
       );
       Navigator.of(context).pop();

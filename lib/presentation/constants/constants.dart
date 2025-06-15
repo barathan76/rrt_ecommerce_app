@@ -11,8 +11,6 @@ TextStyle mtextStyle({double? fontSize, FontWeight? fontWeight, Color? color}) {
   );
 }
 
-final numberRegex = RegExp(r'^[0-9]+$');
-
 final greyBoxShadow = BoxShadow(
   blurStyle: BlurStyle.outer,
   blurRadius: 1,

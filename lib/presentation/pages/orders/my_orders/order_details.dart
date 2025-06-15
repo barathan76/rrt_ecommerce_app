@@ -1,7 +1,8 @@
+import 'package:cart_repository/cart_repository.dart'
+    show Order, OrderStatus, getOrderStatus;
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/order_model.dart';
-import 'package:rrt_ecommerce_app/presentation/constants/constants.dart'
-    hide formatedDate;
+
+import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key, required this.order});
@@ -19,21 +20,21 @@ class OrderDetails extends StatelessWidget {
             spacing: 10,
             children: [
               Text(
-                'Order id : ${order.id}',
+                'Order id : ${order.orderId}',
                 style: mtextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: const Color.fromARGB(155, 0, 0, 0),
                 ),
               ),
-              ...order.cartItems.map(
+              ...order.orderItems.map(
                 (x) => kOutlineContainer(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Row(
                     spacing: 10,
                     children: [
                       Image.network(
-                        x.product.imageUrl,
+                        x.productImg,
                         width: 100,
                         fit: BoxFit.contain,
                       ),
@@ -42,7 +43,7 @@ class OrderDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              x.product.title,
+                              x.productName,
                               maxLines: 2,
                               style: mtextStyle(
                                 fontSize: 12,
@@ -50,7 +51,7 @@ class OrderDetails extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              x.product.category,
+                              x.category,
                               maxLines: 2,
                               style: mtextStyle(
                                 fontSize: 12,
@@ -58,7 +59,7 @@ class OrderDetails extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${order.amount}',
+                              '${x.price}',
                               maxLines: 2,
                               style: mtextStyle(
                                 fontSize: 12,
@@ -66,16 +67,15 @@ class OrderDetails extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              order.getstatusMessage(x.product.id),
+                              x.getStatusMessage(),
                               style: mtextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             OrderProgressIndicator(
-                              statusMap: order.statusMap[x.product.id]!,
-                              currentStatus:
-                                  order.currentStatusMap[x.product.id]!,
+                              statusMap: x.statusTimeStamps,
+                              currentStatus: x.currentStatus,
                             ),
                           ],
                         ),

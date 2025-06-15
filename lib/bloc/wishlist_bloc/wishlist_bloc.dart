@@ -8,15 +8,20 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistInitial()) {
     WishlistProductsRepo wishlistProductsRepo = WishlistProductsRepoService();
     on<CheckWishListed>((event, emit) async {
-      emit(WishlistLoading());
       try {
-        bool condition = await wishlistProductsRepo.isWishlisted(
-          event.productId,
-        );
-        if (condition) {
-          emit(ProductWishlisted());
-        } else {
+        if (state is WishlistInitial) {
+          bool condition = await wishlistProductsRepo.isWishlisted(
+            event.productId,
+          );
+          if (condition) {
+            emit(ProductWishlisted());
+          } else {
+            emit(ProductNotWishlisted());
+          }
+        } else if (state is ProductWishlisted) {
           emit(ProductNotWishlisted());
+        } else if (state is ProductNotWishlisted) {
+          emit(ProductWishlisted());
         }
       } catch (_) {
         emit(ProductNotWishlisted());

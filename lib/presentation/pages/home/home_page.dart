@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:products_repository/products_repository.dart';
 import 'package:rrt_ecommerce_app/bloc/products_bloc/products_bloc.dart';
-import 'package:rrt_ecommerce_app/data/products_data.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/search/search_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/home_app_bar.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/products_view/grid_product_view.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/horizontal_product_list.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/products_view/staggered_vertical_grid_view.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/search_bar_field.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,12 +29,16 @@ class HomePage extends StatelessWidget {
                       context,
                     ).push(MaterialPageRoute(builder: (ctx) => SearchPage())),
               ),
+
               productsBlocWrapper(
-                HorizontalListView(productList: productsData),
                 context,
+                (x) => HorizontalListView(productList: x),
               ),
-              // HorizontalListView(productList: productsData),
-              StaggeredVerticalGridView(productsData: productsData),
+              productsBlocWrapper(context, (x) => GridProductView(products: x)),
+              // productsBlocWrapper(
+              //   context,
+              //   (x) => StaggeredVerticalGridView(productsData: x),
+              // ),
             ],
           ),
         ),
@@ -44,7 +48,10 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget productsBlocWrapper(Widget child, BuildContext context) {
+Widget productsBlocWrapper(
+  BuildContext context,
+  Widget Function(List<Product> products) assign,
+) {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     BlocProvider.of<ProductsBloc>(context).add(GetProductsEvent());
   });
@@ -56,7 +63,7 @@ Widget productsBlocWrapper(Widget child, BuildContext context) {
           child: Center(child: CircularProgressIndicator()),
         );
       } else if (state is ProductsLoaded) {
-        return child;
+        return assign(state.productsList);
       } else if (state is ProductsFailure) {
         return SizedBox(height: 500, child: Center(child: Text(state.message)));
       }

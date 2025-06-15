@@ -11,25 +11,17 @@ import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dar
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
 import 'package:rrt_ecommerce_app/services/image_picker.dart';
+import 'package:rrt_ecommerce_app/services/validators.dart';
 import 'package:user_repository/user_repository.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ProfilePageBuilder();
-  }
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class ProfilePageBuilder extends StatefulWidget {
-  const ProfilePageBuilder({super.key});
-
-  @override
-  State<ProfilePageBuilder> createState() => _ProfilePageBuilderState();
-}
-
-class _ProfilePageBuilderState extends State<ProfilePageBuilder> {
+class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -102,12 +94,6 @@ class _ProfilePageBuilderState extends State<ProfilePageBuilder> {
           title: 'Profile Details',
           style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
-        // appBar: AppBar(
-        //   title: Text(
-        //     'Profile Details',
-        //     style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-        //   ),
-        // ),
         bottomNavigationBar: CustomBottomNavigationBar(index: 4),
         body: SingleChildScrollView(
           child: Center(

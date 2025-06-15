@@ -42,3 +42,8 @@ Uri toogleWishlistUrl(int productId) =>
 
 Uri checkWishlistUrl(int productId) =>
     Uri.parse('${backend}user/wishlist/check/$productId');
+
+Uri getSelectedAddressUrl = Uri.parse('${backend}user/selected-address');
+
+Uri selectAddressUrl(int id) =>
+    Uri.parse('${backend}user/selected-address/select/$id');

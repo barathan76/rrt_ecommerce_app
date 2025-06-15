@@ -1,4 +1,6 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -13,6 +15,7 @@ class _SpeechToTextDialogState extends State<SpeechToTextDialog> {
   final SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
   String _lastWords = '';
+  bool _isListening = false;
 
   @override
   void initState() {
@@ -22,17 +25,20 @@ class _SpeechToTextDialogState extends State<SpeechToTextDialog> {
 
   void _initSpeech() async {
     _speechEnabled = await _speechToText.initialize();
-    setState(() {});
   }
 
   void _startListening() async {
     await _speechToText.listen(onResult: _onSpeechResult);
-    setState(() {});
+    setState(() {
+      _isListening = true;
+    });
   }
 
   void _stopListening() async {
     await _speechToText.stop();
-    setState(() {});
+    setState(() {
+      _isListening = false;
+    });
   }
 
   void _onSpeechResult(SpeechRecognitionResult result) {
@@ -64,20 +70,34 @@ class _SpeechToTextDialogState extends State<SpeechToTextDialog> {
                 },
               ),
             ),
-            IconButton(
-              onPressed:
-                  _speechToText.isNotListening
-                      ? _startListening
-                      : _stopListening,
-              icon: Icon(
-                _speechToText.isNotListening ? Icons.mic_off : Icons.mic,
-                size: 25,
+
+            AvatarGlow(
+              animate: _speechToText.isListening,
+              glowColor: kRedColor,
+              duration: Duration(milliseconds: 2000),
+
+              repeat: true,
+
+              child: Material(
+                elevation: 4.0,
+                shape: CircleBorder(),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  child: IconButton(
+                    onPressed: !_isListening ? _startListening : _stopListening,
+                    icon: Icon(
+                      _isListening ? Icons.mic : Icons.mic_off,
+                      size: 25,
+                    ),
+                  ),
+                ),
               ),
             ),
+            SizedBox(height: 20),
             Text(
               _speechToText.isListening
                   ? 'Listening'
-                  : _speechEnabled
+                  : _speechEnabled || !_isListening
                   ? 'Tap to Speak'
                   : 'Speech not available',
             ),

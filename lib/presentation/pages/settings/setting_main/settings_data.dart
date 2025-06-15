@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/ordersWithBloc/my_orders/orders_page.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/orders/my_orders/orders_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/profile/profile_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/coupons/coupons_page.dart';

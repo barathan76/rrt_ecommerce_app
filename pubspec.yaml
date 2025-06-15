@@ -26,6 +26,7 @@ dependencies:
     path: packages/cart_repository
   image_picker: ^1.1.2
   image_picker_for_web: ^3.0.6
+  avatar_glow: ^3.0.1
 
 dev_dependencies:
   flutter_test:

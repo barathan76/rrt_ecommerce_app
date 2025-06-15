@@ -1,7 +1,8 @@
+import 'package:cart_repository/cart_repository.dart' show Order;
 import 'package:flutter/material.dart';
-import 'package:rrt_ecommerce_app/data/order_model.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/orders/my_orders/order_details.dart';
+import 'package:rrt_ecommerce_app/presentation/pages/orders/my_orders/order_details.dart'
+    show OrderDetails;
 
 class OrderTile extends StatelessWidget {
   const OrderTile({super.key, required this.order});
@@ -26,7 +27,7 @@ class OrderTile extends StatelessWidget {
               width: 80,
               height: 80,
               child: Image.network(
-                order.cartItems[0].product.imageUrl,
+                order.orderItems[0].productImg,
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.contain,
@@ -40,7 +41,7 @@ class OrderTile extends StatelessWidget {
 
                 children: [
                   Text(
-                    '${order.cartItems[0].product.title} ${order.cartItems.length > 1 ? '+ ${order.cartItems.length - 1} items' : ''}',
+                    '${order.orderItems[0].productName} ${order.orderItems.length > 1 ? '+ ${order.orderItems.length - 1} items' : ''}',
                     overflow: TextOverflow.ellipsis,
                     style: mtextStyle(
                       fontSize: 14,
@@ -49,7 +50,7 @@ class OrderTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    order.getstatusMessage(order.cartItems[0].product.id),
+                    order.orderItems[0].getStatusMessage(),
                     style: mtextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,

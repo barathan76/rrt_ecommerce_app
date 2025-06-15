@@ -12,3 +12,8 @@ class SelectAddressInitial extends SelectAddressState {
 class SelectAddressChanged extends SelectAddressState {
   SelectAddressChanged(super.userAddress);
 }
+
+class SelectAddressFailure extends SelectAddressState {
+  String msg;
+  SelectAddressFailure(super.userAddress, {required this.msg});
+}

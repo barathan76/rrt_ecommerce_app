@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:api_repository/api_repository.dart';
-import 'package:api_repository/src/usecase/api_wishlist.dart';
 import 'package:api_repository/src/utility/path.dart';
 import 'package:api_repository/src/utility/storage_repo_service.dart';
 import 'package:http/http.dart' as http;
@@ -36,8 +35,8 @@ class ApiWishlistService extends ApiWishlist {
   @override
   Future<bool> toggleWishlist(int productId) async {
     String? token = await userToken;
-    final response = await http.get(
-      checkWishlistUrl(productId),
+    final response = await http.post(
+      toogleWishlistUrl(productId),
       headers: {'Authorization': '$token'},
     );
     if (response.statusCode == 200) {

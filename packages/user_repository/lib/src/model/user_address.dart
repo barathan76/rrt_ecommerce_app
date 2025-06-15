@@ -97,6 +97,13 @@ class UserAddress {
         'addressLine2: $addressLine2, addressType: $addressType, '
         'landMark: ${landMark ?? "N/A"})';
   }
+
+  bool equals(Object other) {
+    if (other is UserAddress && other.id == id) {
+      return true;
+    }
+    return false;
+  }
 }
 
 enum AddressType { home, work, empty }

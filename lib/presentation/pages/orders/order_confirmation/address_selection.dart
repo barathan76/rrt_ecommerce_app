@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/address_bloc/address_bloc.dart';
+import 'package:rrt_ecommerce_app/bloc/select_address_bloc/select_address_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_details.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/addreess/address_tile.dart';
-import 'package:rrt_ecommerce_app/services/snack_bar_msg.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 
-class AddressPage extends StatelessWidget {
-  const AddressPage({super.key});
+class AddressSelection extends StatelessWidget {
+  const AddressSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My Addresses',
+          'Select Address',
           style: mtextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -54,43 +54,47 @@ class AddressPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BlocConsumer<AddressBloc, AddressState>(
-                listener: (context, state) {
-                  if (state is AddressFailure) {
-                    showErrorMsg(context, state.msg);
-                  }
-                },
-                builder: (context, state) {
-                  if (state is AddressLoaded || state is AddressListUpdated) {
-                    List<UserAddress> addressList = [];
-                    if (state is AddressLoaded) {
-                      addressList = state.addressList;
-                    } else if (state is AddressListUpdated) {
-                      addressList = state.addressList;
-                    }
-                    return addressList.isEmpty
-                        ? Center(child: Text("No address saved"))
-                        : ListView.builder(
-                          itemCount: addressList.length,
-                          itemBuilder:
-                              (context, index) => AddressTile(
-                                address: addressList[index],
+            child: BlocBuilder<AddressBloc, AddressState>(
+              builder: (context, addressState) {
+                if (addressState.addressList.isEmpty) {
+                  return Center(child: Text("No address saved"));
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BlocBuilder<SelectAddressBloc, SelectAddressState>(
+                      builder: (context, state) {
+                        final selectedId = state.userAddress?.id;
+                        return ListView.builder(
+                          itemCount: addressState.addressList.length,
+                          itemBuilder: (context, index) {
+                            final address = addressState.addressList[index];
+                            return ListTile(
+                              leading: Radio<int>(
+                                value: address.id!,
+                                groupValue: selectedId,
+                                onChanged: (_) {
+                                  context.read<SelectAddressBloc>().add(
+                                    ChangeSelectAddressEvent(address),
+                                  );
+                                },
+                              ),
+
+                              title: AddressTile(
+                                address: address,
                                 onEdit: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder:
                                           (ctx) => AddressDetails(
                                             title: 'Edit delivery address',
-                                            address: addressList[index],
+                                            address: address,
                                             onSubmit: (x) {
                                               BlocProvider.of<AddressBloc>(
                                                 context,
                                               ).add(
                                                 UpdateAddressEvent(
                                                   address: x,
-                                                  id: addressList[index].id!,
+                                                  id: address.id!,
                                                 ),
                                               );
                                             },
@@ -99,19 +103,42 @@ class AddressPage extends StatelessWidget {
                                   );
                                 },
                                 onRemove: () {
-                                  BlocProvider.of<AddressBloc>(context).add(
-                                    DeleteAddressEvent(
-                                      id: addressList[index].id!,
-                                    ),
+                                  context.read<AddressBloc>().add(
+                                    DeleteAddressEvent(id: address.id!),
                                   );
+                                  if (selectedId == address.id) {
+                                    context.read<SelectAddressBloc>().add(
+                                      ChangeSelectAddressEvent(null),
+                                    );
+                                  }
                                 },
                               ),
+                            );
+                          },
                         );
-                  }
-                  return Center(child: Text("Error in loading"));
-                },
-              ),
+                      },
+                    ),
+                  );
+                }
+              },
             ),
+          ),
+
+          BlocBuilder<SelectAddressBloc, SelectAddressState>(
+            builder: (context, state) {
+              if (state.userAddress != null) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: SubmitButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    text: 'Select Address',
+                  ),
+                );
+              }
+              return SizedBox.shrink();
+            },
           ),
         ],
       ),

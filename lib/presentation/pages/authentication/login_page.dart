@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(automaticallyImplyLeading: false),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
