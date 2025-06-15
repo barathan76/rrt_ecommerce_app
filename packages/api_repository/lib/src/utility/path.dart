@@ -1,7 +1,6 @@
-final backEndl = 'http://192.168.1.6:8080/api/';
-final backEnd2 = 'http://10.30.154.29:8080/api/';
+final backEndl = 'http://localhost:8080/api/';
 
-final backend = backEnd2;
+final backend = backEndl;
 
 final registerUrl = Uri.parse('${backend}auth/register');
 
