@@ -37,9 +37,15 @@ class HorizontalTile extends StatelessWidget {
               child: Image.network(
                 product.imageUrl,
                 width: double.infinity,
-
                 height: 80,
                 fit: BoxFit.contain,
+                errorBuilder:
+                    (context, error, stackTrace) => Container(
+                      height: 80,
+                      width: double.infinity,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.broken_image, color: Colors.grey),
+                    ),
               ),
             ),
 

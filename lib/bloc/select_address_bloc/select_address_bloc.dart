@@ -18,12 +18,14 @@ class SelectAddressBloc extends Bloc<SelectAddressEvent, SelectAddressState> {
       }
     });
     on<ChangeSelectAddressEvent>((event, emit) async {
+      // Optimistically update selected address
+      emit(SelectAddressChanged(event.userAddress));
       try {
         if (event.userAddress != null) {
           await userRepoAddress.selectAddress(event.userAddress!.id!);
         }
-        emit(SelectAddressChanged(event.userAddress));
       } on UserRepoError catch (e) {
+        // Revert if API fails
         emit(SelectAddressFailure(state.userAddress, msg: e.message));
       } catch (e) {
         emit(SelectAddressFailure(state.userAddress, msg: e.toString()));

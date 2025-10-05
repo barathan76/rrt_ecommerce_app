@@ -5,8 +5,8 @@ sealed class CartEvent {}
 class LoadCartEvent extends CartEvent {}
 
 class AddCartItemEvent extends CartEvent {
-  final int productId;
-  AddCartItemEvent({required this.productId});
+  final Product product;
+  AddCartItemEvent({required this.product});
 }
 
 class UpdateCartItemEvent extends CartEvent {

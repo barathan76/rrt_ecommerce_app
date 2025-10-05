@@ -18,7 +18,7 @@ class OrdersPage extends StatelessWidget {
           if (state is OrderLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is OrderFailure) {
-            return Center(child: Text(state.msg));
+            return Center(child: Text("Unable to load"));
           } else if (state is OrderLoaded || state is OrderUpdated) {
             if (state.orders.isEmpty) {
               return Center(child: Text("Nothinig here"));

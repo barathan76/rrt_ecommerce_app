@@ -6,7 +6,8 @@ class LoadWishlistProducts extends WishlistProductsEvent {}
 
 class ToggleWishlistProduct extends WishlistProductsEvent {
   final int productId;
-  ToggleWishlistProduct(this.productId);
+  final Product product;
+  ToggleWishlistProduct(this.productId, this.product);
 }
 
 class AddWishlistProduct extends WishlistProductsEvent {

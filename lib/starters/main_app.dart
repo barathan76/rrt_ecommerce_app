@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
+import 'package:rrt_ecommerce_app/presentation/main_scaffold.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/forgot_password_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/login_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/authentication/register_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/starters/splash.dart';
 
 class MainApp extends StatelessWidget {
@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
         '/login': (_) => LoginPage(),
         '/register': (_) => RegisterPage(),
         '/forgot': (_) => ForgotPasswordPage(),
-        '/home': (_) => HomePage(),
+        '/home': (_) => MainScaffold(),
       },
       theme: ThemeData(colorScheme: kColorScheme),
       // home: ProfilePage(),

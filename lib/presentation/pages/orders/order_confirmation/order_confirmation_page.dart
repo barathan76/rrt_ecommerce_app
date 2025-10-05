@@ -4,13 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/order_bloc/order_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/select_address_bloc/select_address_bloc.dart';
-import 'package:rrt_ecommerce_app/bloc/wishlist_bloc/wishlist_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/wishlist_products_bloc/wishlist_products_bloc.dart';
 
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/main_scaffold.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/address_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/dialogs/order_confimation_dialog.dart';
@@ -28,7 +27,7 @@ class OrderConfirmationPage extends StatelessWidget {
 
   void _redirectToHome(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (ctx) => HomePage()),
+      MaterialPageRoute(builder: (ctx) => MainScaffold()),
       (Route<dynamic> route) => false,
     );
   }

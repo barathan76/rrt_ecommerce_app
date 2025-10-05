@@ -59,7 +59,7 @@ class AddressPage extends StatelessWidget {
               child: BlocConsumer<AddressBloc, AddressState>(
                 listener: (context, state) {
                   if (state is AddressFailure) {
-                    showErrorMsg(context, state.msg);
+                    showErrorMsg(context, "Sorry, unable to connect right now");
                   }
                 },
                 builder: (context, state) {

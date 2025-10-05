@@ -26,10 +26,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         List<Order> orders = await orderRepo.getUserOrders();
         emit(OrderUpdated(orders));
       } on CartError catch (e) {
-        print(e.msg);
         emit(OrderFailure(state.orders, e.msg));
       } catch (e) {
-        print(e.toString());
         emit(OrderFailure(state.orders, e.toString()));
       }
     });

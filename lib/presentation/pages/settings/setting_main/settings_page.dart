@@ -4,7 +4,6 @@ import 'package:rrt_ecommerce_app/bloc/auth_bloc/auth_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_container.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_data.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/starters/splash.dart';
 
@@ -27,7 +26,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(index: 4),
+      // bottomNavigationBar removed for static navigation
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12.0),

@@ -8,7 +8,6 @@ import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_item_tile.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/orders/order_confirmation/order_confirmation_page.dart';
 
 import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/cart_bottom_app_bar.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -46,7 +45,7 @@ class CartScreen extends StatelessWidget {
 
           List<CartItem> cartItems = bloc.state.cartItems;
           if (state is CartFailure) {
-            return Center(child: Text(state.msg));
+            return Center(child: Text("Unable to load"));
           }
           if (cartItems.isEmpty) {
             return content;
@@ -106,7 +105,7 @@ class CartScreen extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(index: 2),
+      // bottomNavigationBar removed for static navigation
     );
   }
 }

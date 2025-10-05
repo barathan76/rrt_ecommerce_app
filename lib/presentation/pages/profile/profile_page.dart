@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rrt_ecommerce_app/bloc/user_profile_bloc/user_profile_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/app_bar_cs.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/submit_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/profile_picker.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/input_text_field.dart';
@@ -86,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
         } else if (state is UserProfileFailure) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          ).showSnackBar(SnackBar(content: Text("Unable to connect")));
         }
       },
       child: Scaffold(
@@ -94,7 +93,6 @@ class _ProfilePageState extends State<ProfilePage> {
           title: 'Profile Details',
           style: mtextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
-        bottomNavigationBar: CustomBottomNavigationBar(index: 4),
         body: SingleChildScrollView(
           child: Center(
             child: SizedBox(

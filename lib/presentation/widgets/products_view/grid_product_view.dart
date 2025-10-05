@@ -16,10 +16,8 @@ class GridProductView extends StatelessWidget {
       crossAxisCount: crossAxisCount,
       mainAxisSpacing: 2,
       crossAxisSpacing: 2,
-      childAspectRatio: 0.9,
-      children: [
-        ...products.map((x) => VerticalTile(product: x, imageSize: 100)),
-      ],
+      childAspectRatio: 0.7,
+      children: [...products.map((x) => VerticalTile(product: x))],
     );
   }
 }

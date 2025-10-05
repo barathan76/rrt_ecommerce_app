@@ -6,9 +6,8 @@ import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dar
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
 
 class VerticalTile extends StatelessWidget {
-  const VerticalTile({super.key, required this.product, this.imageSize});
+  const VerticalTile({super.key, required this.product});
   final Product product;
-  final double? imageSize;
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +23,26 @@ class VerticalTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 5),
-            imageSize != null
-                ? Center(
-                  child: SizedBox(
-                    width: imageSize,
-                    height: 50,
-                    child: Image.network(product.imageUrl, fit: BoxFit.contain),
-                  ),
-                )
-                : ClipRRect(
+            Expanded(
+              child: Center(
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(product.imageUrl),
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder:
+                        (context, error, stackTrace) => Container(
+                          color: Colors.grey[300],
+                          child: const Icon(
+                            Icons.broken_image,
+                            color: Colors.grey,
+                            size: 48,
+                          ),
+                        ),
+                  ),
                 ),
-            const SizedBox(height: 6),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -46,26 +51,30 @@ class VerticalTile extends StatelessWidget {
                   Text(
                     product.title,
                     style: mtextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     product.description,
                     maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: mtextStyle(
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     '\$${product.price}',
                     style: mtextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
+                  const SizedBox(height: 2),
                   Row(
                     children: [
                       RatingStars(rating: product.rating.rate, scale: 1),

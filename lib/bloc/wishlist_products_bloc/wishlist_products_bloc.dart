@@ -24,11 +24,17 @@ class WishlistProductsBloc
     });
 
     on<ToggleWishlistProduct>((event, emit) async {
+      List<Product> updatedList = List<Product>.from(state.wishlistedProducts);
+      int idx = updatedList.indexWhere((p) => p.id == event.productId);
+      if (idx >= 0) {
+        updatedList.removeAt(idx);
+      } else {
+        updatedList.add(event.product);
+      }
+      emit(WishlistProductsUpdated(updatedList));
+
       try {
         await wishlistProductsRepo.toggleWishlist(event.productId);
-        List<Product> wishlistedProducts =
-            await wishlistProductsRepo.getWishList();
-        emit(WishlistProductsUpdated(wishlistedProducts));
       } catch (_) {
         emit(
           WishlistProductsFailure(
@@ -36,17 +42,6 @@ class WishlistProductsBloc
             msg: 'Error in toggle',
           ),
         );
-      }
-    });
-
-    on<AddWishlistProduct>((event, emit) async {
-      try {
-        state.wishlistedProducts.firstWhere((x) => x.id == event.productId);
-      } catch (_) {
-        await wishlistProductsRepo.toggleWishlist(event.productId);
-        List<Product> wishlistedProducts =
-            await wishlistProductsRepo.getWishList();
-        emit(WishlistProductsUpdated(wishlistedProducts));
       }
     });
   }

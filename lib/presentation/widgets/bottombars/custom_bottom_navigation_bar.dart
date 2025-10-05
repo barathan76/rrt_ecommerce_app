@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/cart/cart_screen.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/home/home_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/search/search_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/settings/setting_main/settings_page.dart';
-import 'package:rrt_ecommerce_app/presentation/pages/wishlist/wishlist_page.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/bottom_navigation_button.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key, required this.index});
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.index,
+    required this.onTabSelected,
+  });
   final int index;
+  final void Function(int) onTabSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,54 +30,26 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 icon: Icons.home_filled,
                 text: 'Home',
                 color: index == 0 ? kRedColor : Colors.black,
-                onPressed: () {
-                  if (index == 0) {
-                    return;
-                  }
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (ctx) => HomePage()));
-                },
+                onPressed: () => onTabSelected(0),
               ),
               BottomNavigationButton(
                 icon: Icons.favorite_border,
                 text: 'Wishlist',
                 color: index == 1 ? kRedColor : Colors.black,
-                onPressed: () {
-                  if (index == 1) {
-                    return;
-                  }
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (ctx) => WishlistPage()));
-                },
+                onPressed: () => onTabSelected(1),
               ),
               SizedBox(width: 30), // Space for the floating cart icon
               BottomNavigationButton(
                 icon: Icons.search,
                 text: 'Search',
                 color: index == 3 ? kRedColor : Colors.black,
-                onPressed: () {
-                  if (index == 3) {
-                    return;
-                  }
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (ctx) => SearchPage()));
-                },
+                onPressed: () => onTabSelected(3),
               ),
               BottomNavigationButton(
                 icon: Icons.settings,
                 text: 'Settings',
                 color: index == 4 ? kRedColor : Colors.black,
-                onPressed: () {
-                  if (index == 4) {
-                    return;
-                  }
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (ctx) => SettingsPage()));
-                },
+                onPressed: () => onTabSelected(4),
               ),
             ],
           ),
@@ -87,10 +59,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           top: -10,
           left: MediaQuery.of(context).size.width / 2 - 30,
           child: GestureDetector(
-            onTap:
-                () => Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (ctx) => CartScreen())),
+            onTap: () => onTabSelected(2),
             child: Container(
               width: 60,
               height: 60,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/search_products_bloc/search_products_bloc.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/appbars/home_app_bar.dart';
-import 'package:rrt_ecommerce_app/presentation/widgets/bottombars/custom_bottom_navigation_bar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/products_view/staggered_vertical_grid_view.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/text_fields/search_bar_field.dart';
 
@@ -64,16 +63,18 @@ class _SearchPageState extends State<SearchPage> {
                       isScroll: true,
                     );
                   } else if (state is SearchProductsFailure) {
-                    return Center(child: Text(state.message));
+                    return Center(child: Text("Sorry, unable to fetch"));
+                  } else if (state is SearchProductsLoading) {
+                    return Center(child: CircularProgressIndicator());
                   }
-                  return Center(child: Text("Search"));
+                  return Center(child: Text("Search Products"));
                 },
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(index: 3),
+      // bottomNavigationBar removed for static navigation
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart' show Product;
 import 'package:rrt_ecommerce_app/bloc/cart_bloc/cart_bloc.dart';
-import 'package:rrt_ecommerce_app/bloc/wishlist_bloc/wishlist_bloc.dart';
 import 'package:rrt_ecommerce_app/bloc/wishlist_products_bloc/wishlist_products_bloc.dart';
 // import 'package:rrt_ecommerce_app/data/product_model.dart';
 
@@ -60,6 +59,17 @@ class ProductDetails extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.contain,
+                  headers: {"User-Agent": "Mozilla/5.0"},
+                  errorBuilder:
+                      (context, error, stackTrace) => Container(
+                        height: 200,
+                        width: double.infinity,
+                        color: Colors.grey[300],
+                        child: const Icon(
+                          Icons.broken_image,
+                          color: Colors.grey,
+                        ),
+                      ),
                 ),
               ),
               Text(
@@ -123,7 +133,7 @@ class ProductDetails extends StatelessWidget {
                     icon: Icons.shopping_cart,
                     onPressed: () {
                       if (!cartItems.contains(product as Object)) {
-                        bloc.add(AddCartItemEvent(productId: product.id));
+                        bloc.add(AddCartItemEvent(product: product));
                       }
                       Navigator.of(
                         context,
@@ -140,36 +150,30 @@ class ProductDetails extends StatelessWidget {
                     icon: Icons.touch_app,
                     onPressed: () {
                       if (!cartItems.contains(product as Object)) {
-                        bloc.add(AddCartItemEvent(productId: product.id));
+                        bloc.add(AddCartItemEvent(product: product));
                         showSnackBar(context, content: 'Item added to cart');
                       } else {
                         showSnackBar(context, content: 'Item already in cart');
                       }
                     },
                   ),
-                  BlocProvider<WishlistBloc>(
-                    create:
-                        (context) =>
-                            WishlistBloc()..add(CheckWishListed(product.id)),
-                    child: Builder(
-                      builder: (context) {
-                        final bloc = context.watch<WishlistBloc>();
-                        return IconButton(
-                          onPressed: () {
-                            BlocProvider.of<WishlistProductsBloc>(
-                              context,
-                            ).add(ToggleWishlistProduct(product.id));
-                            bloc.add(CheckWishListed(product.id));
-                          },
-                          icon: Icon(
-                            bloc.state is ProductWishlisted
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: kRedColor,
-                          ),
-                        );
-                      },
-                    ),
+                  BlocBuilder<WishlistProductsBloc, WishlistProductsState>(
+                    builder: (context, wishlistState) {
+                      final isWishlisted = wishlistState.wishlistedProducts.any(
+                        (p) => p.id == product.id,
+                      );
+                      return IconButton(
+                        onPressed: () {
+                          BlocProvider.of<WishlistProductsBloc>(
+                            context,
+                          ).add(ToggleWishlistProduct(product.id, product));
+                        },
+                        icon: Icon(
+                          isWishlisted ? Icons.favorite : Icons.favorite_border,
+                          color: kRedColor,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
