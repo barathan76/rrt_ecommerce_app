@@ -19,5 +19,7 @@ export 'src/usecase/api_order.dart';
 export 'src/services/api_order_service.dart';
 export 'src/services/api_wishlist_service.dart';
 export 'src/usecase/api_wishlist.dart';
+export 'src/utility/path.dart' show backend;
+export 'src/utility/storage_repo_service.dart' show userToken;
 
 // TODO: Export any libraries intended for clients of this package.

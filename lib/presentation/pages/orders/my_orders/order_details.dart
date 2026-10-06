@@ -3,6 +3,7 @@ import 'package:cart_repository/cart_repository.dart'
 import 'package:flutter/material.dart';
 
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/authenticated_image.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key, required this.order});
@@ -33,9 +34,10 @@ class OrderDetails extends StatelessWidget {
                   child: Row(
                     spacing: 10,
                     children: [
-                      Image.network(
-                        x.productImg,
+                      AuthenticatedImage(
+                        imageUrl: x.productImg,
                         width: 100,
+                        height: 100,
                         fit: BoxFit.contain,
                       ),
                       Expanded(

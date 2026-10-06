@@ -1,4 +1,5 @@
 import 'package:products_repository/src/model/rating.dart';
+import 'package:api_repository/api_repository.dart' show backend;
 
 class Product {
   final int id;
@@ -6,7 +7,6 @@ class Product {
   final double price;
   final String description;
   final String category;
-  final String imageUrl;
   final Rating rating;
   bool wishlist;
   Product({
@@ -15,10 +15,11 @@ class Product {
     required this.price,
     required this.description,
     required this.category,
-    required this.imageUrl,
     required this.rating,
     this.wishlist = false,
   });
+
+  String get imageUrl => Uri.parse('${backend}products/$id/image').toString();
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
@@ -27,7 +28,6 @@ class Product {
       price: double.parse(map['price'].toString()),
       description: map['description'] as String,
       category: map['category'] as String,
-      imageUrl: map['imageUrl'] as String,
       rating: Rating.fromMap(map['rating'] as Map<String, dynamic>),
     );
   }

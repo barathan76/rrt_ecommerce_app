@@ -14,6 +14,7 @@ import 'package:rrt_ecommerce_app/presentation/widgets/buttons/icon_text_gradien
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/custom_snackbar.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/authenticated_image.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key, required this.product});
@@ -54,22 +55,11 @@ class ProductDetails extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(width: 10, color: Colors.white),
                 ),
-                child: Image.network(
-                  product.imageUrl,
+                child: AuthenticatedImage(
+                  imageUrl: product.imageUrl,
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.contain,
-                  headers: {"User-Agent": "Mozilla/5.0"},
-                  errorBuilder:
-                      (context, error, stackTrace) => Container(
-                        height: 200,
-                        width: double.infinity,
-                        color: Colors.grey[300],
-                        child: const Icon(
-                          Icons.broken_image,
-                          color: Colors.grey,
-                        ),
-                      ),
                 ),
               ),
               Text(

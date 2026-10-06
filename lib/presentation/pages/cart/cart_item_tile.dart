@@ -4,6 +4,7 @@ import 'package:rrt_ecommerce_app/presentation/constants/colors.dart';
 import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/buttons/circle_icon_button.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/authenticated_image.dart';
 
 class CartItemTile extends StatelessWidget {
   const CartItemTile({
@@ -31,9 +32,8 @@ class CartItemTile extends StatelessWidget {
               children: [
                 kOutlineContainer(
                   width: 100,
-                  child: Image.network(
-                    item.product.imageUrl,
-
+                  child: AuthenticatedImage(
+                    imageUrl: item.product.imageUrl,
                     fit: BoxFit.contain,
                     height: 100,
                   ),

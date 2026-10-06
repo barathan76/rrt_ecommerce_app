@@ -6,6 +6,7 @@ import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/product_details/product_details.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/authenticated_image.dart';
 
 class HorizontalTile extends StatelessWidget {
   const HorizontalTile({super.key, required this.product});
@@ -34,18 +35,11 @@ class HorizontalTile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              child: Image.network(
-                product.imageUrl,
+              child: AuthenticatedImage(
+                imageUrl: product.imageUrl,
                 width: double.infinity,
                 height: 80,
                 fit: BoxFit.contain,
-                errorBuilder:
-                    (context, error, stackTrace) => Container(
-                      height: 80,
-                      width: double.infinity,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.broken_image, color: Colors.grey),
-                    ),
               ),
             ),
 

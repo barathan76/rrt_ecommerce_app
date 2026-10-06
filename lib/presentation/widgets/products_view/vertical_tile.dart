@@ -4,6 +4,7 @@ import 'package:rrt_ecommerce_app/presentation/constants/constants.dart';
 import 'package:rrt_ecommerce_app/presentation/pages/product_details/product_details.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_count.dart';
 import 'package:rrt_ecommerce_app/presentation/widgets/elements/rating_stars.dart';
+import 'package:rrt_ecommerce_app/presentation/widgets/elements/authenticated_image.dart';
 
 class VerticalTile extends StatelessWidget {
   const VerticalTile({super.key, required this.product});
@@ -27,18 +28,9 @@ class VerticalTile extends StatelessWidget {
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    product.imageUrl,
+                  child: AuthenticatedImage(
+                    imageUrl: product.imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder:
-                        (context, error, stackTrace) => Container(
-                          color: Colors.grey[300],
-                          child: const Icon(
-                            Icons.broken_image,
-                            color: Colors.grey,
-                            size: 48,
-                          ),
-                        ),
                   ),
                 ),
               ),
